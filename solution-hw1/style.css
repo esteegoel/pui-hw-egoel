@@ -1,0 +1,10 @@
+hr {
+    height:5px;
+    border-width:0;
+    background-color:black;
+  }
+
+.small {
+    height:5px;
+    border-width:50%;
+}
