@@ -40,7 +40,7 @@ a:hover {
     font-style: 'bold'
   }
 
-  a:link, a:visited {
+  a:link, a:visited { /* W3 Schools */
     color: black;
     padding: 5px 5px;
     text-align: center;
@@ -48,7 +48,7 @@ a:hover {
     display: inline-block;
   }
   
- a:hover, a:active {
+ a:hover, a:active { /* W3 Schools */
     background-color: yellow;
     font-weight: bold;
   }
@@ -57,3 +57,14 @@ img {
     border: 2px solid black;
   }
 
+.button{ /* W3 Schools */
+    background-color: yellow; 
+    border: 2px solid black;
+    color: black;
+    padding: 15px 15px;
+    text-align: center;
+    font-weight: "bold";
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+}
