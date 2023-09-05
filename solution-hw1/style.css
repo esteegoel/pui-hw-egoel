@@ -28,6 +28,12 @@ h5 {
     font-weight: lighter;
 }
 
+p {
+    font-size: 18px;
+    font-family: 'verdana';
+    font-weight: lighter;
+}
+
 
 a:hover {
     background-color: yellow;
@@ -35,7 +41,7 @@ a:hover {
   }
   a:link, a:visited {
     color: black;
-    padding: 14px 25px;
+    padding: 5px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -44,4 +50,8 @@ a:hover {
   a:hover, a:active {
     background-color: yellow;
     font-weight: bold;
+  }
+
+  img {
+    border: 2px solid black;
   }
