@@ -79,5 +79,6 @@ div {
   width: 500px;
   border: none;
   padding: 50px;
-  margin: 20px;
+  margin: none;
+  text-align: left;
 }
