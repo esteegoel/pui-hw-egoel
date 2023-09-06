@@ -39,11 +39,18 @@ a:link, a:visited { /* W3 Schools */
     padding: 5px 5px;
     text-align: center;
     display: inline-block;
+    text-decoration: none;
   }
   
 a:hover, a:active { /* W3 Schools */
     background-color: yellow;
     font-weight: bold;
+    text-decoration: none;
+  }
+
+.prc:hover, .prc:active { /* W3 Schools */
+    background-color: yellow;
+    text-decoration: none;
   }
 
 .prod {
@@ -58,9 +65,20 @@ a:hover, a:active { /* W3 Schools */
     font-weight: "bold";
     display: inline-block;
     font-size: 24px;
+    text-decoration: none;
 }
 
 #logo:hover, #logo:active  {
   background-color: white;
   font-weight: regular;
+}
+
+.name {
+  text-decoration: underline;
+}
+
+.name:hover, .name:active { /* W3 Schools */
+  background-color: yellow;
+  font-weight: bold;
+  text-decoration: underline;
 }
