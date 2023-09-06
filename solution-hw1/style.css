@@ -38,7 +38,6 @@ a:link, a:visited { /* W3 Schools */
     color: black;
     padding: 5px 5px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
   }
   
@@ -54,11 +53,9 @@ a:hover, a:active { /* W3 Schools */
 .button{ /* W3 Schools */
     background-color: yellow; 
     border: 2px solid black;
-    color: black;
     padding: 15px 15px;
     text-align: center;
     font-weight: "bold";
-    text-decoration: none;
     display: inline-block;
     font-size: 24px;
 }
