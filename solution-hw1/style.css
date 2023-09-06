@@ -48,6 +48,12 @@ a:hover, a:active { /* W3 Schools */
     text-decoration: none;
   }
 
+  .name:hover, .name:active { /* W3 Schools */
+    background-color: yellow;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
 .prc:hover, .prc:active { /* W3 Schools */
     background-color: yellow;
     text-decoration: none;
@@ -77,8 +83,8 @@ a:hover, a:active { /* W3 Schools */
   text-decoration: underline;
 }
 
-.name:hover, .name:active { /* W3 Schools */
+.current {
   background-color: yellow;
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: none;
 }
