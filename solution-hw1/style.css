@@ -48,17 +48,6 @@ a:hover, a:active { /* W3 Schools */
     text-decoration: none;
   }
 
-  .name:hover, .name:active { /* W3 Schools */
-    background-color: yellow;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-
-.prc:hover, .prc:active { /* W3 Schools */
-    background-color: yellow;
-    text-decoration: none;
-  }
-
 .prod {
     border: 2px solid black;
   }
@@ -68,7 +57,7 @@ a:hover, a:active { /* W3 Schools */
     border: 2px solid black;
     padding: 15px 15px;
     text-align: center;
-    font-weight: "bold";
+    font-weight: bold;
     display: inline-block;
     font-size: 24px;
     text-decoration: none;
@@ -79,12 +68,16 @@ a:hover, a:active { /* W3 Schools */
   font-weight: regular;
 }
 
-.name {
-  text-decoration: underline;
-}
-
 .current {
   background-color: yellow;
   font-weight: bold;
   text-decoration: none;
+}
+
+div {
+  background-color: white;
+  width: 500px;
+  border: none;
+  padding: 50px;
+  margin: 20px;
 }
