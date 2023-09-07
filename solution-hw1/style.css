@@ -65,7 +65,7 @@ a:hover, a:active { /* W3 Schools */
 
 #logo:hover, #logo:active  {
   background-color: white;
-  font-weight: regular;
+  font-weight: normal;
 }
 
 .current {
@@ -79,5 +79,4 @@ div {
   width: 500px;
   border: none;
   padding: 50px;
-  margin: none;
 }
