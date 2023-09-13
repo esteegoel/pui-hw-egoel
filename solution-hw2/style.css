@@ -86,10 +86,7 @@ div {
   padding: 50px;
 }
 
-.logo {
-  float:left;
-  }
-  
-.mainmenu {
-  float:right;
+.container {
+  flex-flow: row nowrap;
+  display: flex;
   }
