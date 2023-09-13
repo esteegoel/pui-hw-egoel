@@ -3,6 +3,9 @@ hr {
     height:5px;
     border-width:0;
     background-color:black;
+    align:"right";
+    width:"10%"; 
+    size:"2";
   }
 
 h2 {
@@ -81,3 +84,11 @@ div {
   border: none;
   padding: 50px;
 }
+
+.logo {
+  float:left;
+  }
+  
+.mainmenu {
+  float:right;
+  }
