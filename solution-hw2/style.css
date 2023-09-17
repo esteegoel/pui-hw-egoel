@@ -12,9 +12,6 @@ h2 {
     font-size: 24px;
     font-family: 'verdana';
     font-weight: lighter;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
 }
 
 h3 {
@@ -89,7 +86,5 @@ div {
 }
 
 .container {
-  flex-flow: row nowrap;
   display: flex;
-  justify-content: flex-end;
-  }
+}
