@@ -95,7 +95,7 @@ div {
 
 .item {
   display: flex;
-  width: 100%;
+  width: 90%;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -103,9 +103,9 @@ div {
 .pic {
   display: flex;
   flex-direction: column;
-  margin-left: 0;
-  margin-right: -5;
-  width: 100%;
+  width: 90%;
+  justify-content: flex-end;
+  
 }
 
 .details {
@@ -115,9 +115,21 @@ div {
   width: 100%;
 
 }
-.photo, .end{
+.photo {
   display:flex;
   width: 100%;
   justify-content: space-evenly;
-  align-tems: center;
+  align-items: center;
+}
+
+.end {
+  display:flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+label {
+  margin-top: 0;
+  margin-bottom: 0;
 }
