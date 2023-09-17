@@ -105,4 +105,19 @@ div {
   flex-direction: column;
   margin-left: 0;
   margin-right: -5;
+  width: 100%;
+}
+
+.details {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+
+}
+.photo, .end{
+  display:flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-tems: center;
 }
