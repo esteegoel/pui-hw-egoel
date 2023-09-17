@@ -21,9 +21,11 @@ h3 {
 }
 
 h4 {
-    font-size: 24px;
+    font-size: 20px;
     font-family: 'verdana';
     font-weight: lighter;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 h5 {
@@ -87,4 +89,20 @@ div {
 
 .container {
   display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.item {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.pic {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+  margin-right: -5;
 }
