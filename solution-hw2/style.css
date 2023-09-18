@@ -122,7 +122,7 @@ div {
 .details {
   display:flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-end;
   width: 100%;
   padding: 10px;
   border: 30px;
@@ -131,7 +131,7 @@ div {
   display:flex;
   width: 100%;
   justify-content: space-evenly;
-  align-items: top;
+  align-items: center;
 }
 
 .end {
