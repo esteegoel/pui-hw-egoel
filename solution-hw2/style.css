@@ -145,7 +145,7 @@ div {
   flex-direction: column;
   width: 100%;
   justify-content: space-evenly;
-  align-items:last baseline;
+  align-items: last baseline;
 }
 
 .label {
@@ -168,4 +168,7 @@ div {
 .priceline {
   display: flex;
   justify-content: flex-end;
+  text-align: right;
+  gap: 340px;
+  padding-left: 260px;
 }
