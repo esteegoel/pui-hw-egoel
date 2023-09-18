@@ -80,7 +80,6 @@ a:hover, a:active { /* W3 Schools */
 
 div {
   background-color: white;
-  width: 500px;
   border: none;
   padding: 10px;
 }
@@ -98,11 +97,18 @@ div {
   align-self: first baseline;
 }
 
-.item {
+.item1 {
   display: flex;
-  width: 90%;
-  justify-content: space-evenly;
   align-items: center;
+  justify-content: space-around;
+  margin-left: 250px;
+}
+
+.item2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: 280px;
 }
 
 .top {
@@ -116,7 +122,6 @@ div {
 .pic {
   display: flex;
   flex-direction: column;
-  width: 90%;
   justify-content: flex-end;
 }
 
