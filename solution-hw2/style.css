@@ -2,7 +2,7 @@
 hr {
     height:5px;
     background-color:black;
-    width: 100%;
+    width: 800px;
     flex-grow: 3;
   }
 
@@ -60,7 +60,7 @@ a:hover, a:active { /* W3 Schools */
     background-color: yellow; 
     border: 2px solid black;
     padding: 15px 15px;
-    text-align: center;
+    text-align: end;
     font-weight: bold;
     display: inline-block;
     font-size: 24px;
@@ -101,7 +101,7 @@ div {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-left: 250px;
+  margin-left: 260px;
 }
 
 .item2 {
@@ -145,7 +145,7 @@ div {
   flex-direction: column;
   width: 100%;
   justify-content: space-evenly;
-  align-items: center;
+  align-items:last baseline;
 }
 
 .label {
