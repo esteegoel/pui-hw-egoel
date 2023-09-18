@@ -1,11 +1,8 @@
 
 hr {
     height:5px;
-    border-width:0;
     background-color:black;
-    align:"right";
-    width:"10%"; 
-    size:"2";
+    width: 100%;
   }
 
 h2 {
@@ -93,11 +90,26 @@ div {
   justify-content: space-around;
 }
 
+.menu {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-self: first baseline;
+}
+
 .item {
   display: flex;
   width: 90%;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.top {
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: flex-end;
 }
 
 .pic {
@@ -129,7 +141,17 @@ div {
   align-items: flex-end;
 }
 
-label {
+.label {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.pagetitle {
+  align-self: first baseline;
+}
+
+.header {
+  display:flex;
+  width: 100%;
+  align-items: flex-start;
 }
