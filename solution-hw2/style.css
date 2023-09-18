@@ -122,9 +122,8 @@ div {
 .details {
   display:flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   width: 100%;
-
 }
 .photo {
   display:flex;
