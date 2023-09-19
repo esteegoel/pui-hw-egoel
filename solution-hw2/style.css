@@ -129,10 +129,13 @@ div {
 .details {
   display:flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   width: 100%;
   padding: 10px;
   border: 30px;
+  font-size: 20px;
+  font-family: 'verdana';
+  font-weight: lighter;
 }
 .photo {
   display:flex;
@@ -143,9 +146,10 @@ div {
 
 .end {
   display:flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: last baseline;
 }
 
@@ -174,4 +178,12 @@ div {
   text-align: right;
   gap: 340px;
   padding-left: 260px;
+  margin-left: 260px;
 }
+
+.new {
+  display:flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
