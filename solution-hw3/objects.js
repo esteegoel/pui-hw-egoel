@@ -38,16 +38,14 @@ function updatePrice() {
   const packSizeSelect = document.getElementById("sizeOptions");
   const priceDisplay = document.getElementById("price");
 
-  const glazingOptionsrice = parseFloat(glazingSelect.value);
+  const glazingPrice = parseFloat(glazingSelect.selectedOptions[0].value);
   const packPrice = parseInt(packSizeSelect.value);
 
   const totalPrice = (basePrice + glazingPrice) * packPrice;
   
-
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
 }
 
 populateDropdownOptions();
 
 updatePrice();
-
