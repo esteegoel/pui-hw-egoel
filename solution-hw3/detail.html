@@ -37,7 +37,7 @@
             <p class="details"> Customize our delicious, hand-made cinnamon roll to your liking! </p> 
             <h4 class="details">Glazing:</h4>
             <label for="glazing"></label> 
-            <select name="glazing" id="glazing">
+            <select id="glazingOptions" onchange="glazingChange(this)">
               <option value="Keep original">Keep original</option>
               <option value="Sugar milk">Sugar milk</option>
               <option value="Vanilla milk">Vanilla Milk</option>
@@ -48,15 +48,24 @@
           <div>
             <h4 class="details">Pack size:</h4>
             <label for="size"></label>
-            <select name="size" id="size">
+            <select id="sizeOptions" onchange="packSizeChange(this)">
               <option value="1">1</option>
               <option value="3">3</option>
               <option value="6">6</option>
               <option value="12">12</option>
             </select>
           </div>
-        <h3 class="photo"> $ 2.49 <span class = "button"> Add to Cart </span> </h3>
-      </div>
+          <h3 class="photo"> 
+            <p>
+              <span id="price">
+                $2.49
+              </span>
+            </p>
+            <span class = "button"> 
+              Add to Cart 
+            </span> 
+          </h3>
+        </div>
     </div>
     
   </body>
