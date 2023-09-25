@@ -14,10 +14,12 @@ const packSizeOptions = {
 
 const basePrice = 2.49;
 
+// Embed options in java so it is not hardcoded in HTML 
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
 
+  // Populate options
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
     option.value = glazingOptions[glazing];
@@ -25,6 +27,7 @@ function populateDropdownOptions() {
     glazingSelect.appendChild(option);
   }
 
+  // Populate options
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
     option.value = size;
