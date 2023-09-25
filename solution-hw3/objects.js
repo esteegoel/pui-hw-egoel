@@ -1,7 +1,7 @@
 const glazingOptions = {
   'Keep original': 0.00,
   'Sugar milk': 0.00,
-  'Vanilla Milk': 0.50,
+  'Vanilla milk': 0.50,
   'Double Chocolate': 1.50,
 };
 
