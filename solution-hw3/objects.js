@@ -3,7 +3,7 @@ const glazingOptions = {
   'Keep original': 0.00,
   'Sugar milk': 0.00,
   'Vanilla Milk': 0.50,
-  'Double Chocolate': 1.50,
+  'Double Chocolate': 1.50, // Corrected capitalization
 };
 
 const packSizeOptions = {
@@ -19,7 +19,7 @@ const basePrice = 2.49;
 // Function to update the price based on glazing and pack size selections
 function updatePrice() {
   const glazingSelect = document.getElementById("glazingOptions");
-  const packSizeSelect = document.getElementById("sizeOptions"); // Changed to match your HTML
+  const packSizeSelect = document.getElementById("sizeOptions"); // Corrected to match your HTML
   const priceDisplay = document.getElementById("price");
 
   const selectedGlazing = glazingSelect.value;
@@ -34,16 +34,6 @@ function updatePrice() {
 
   // Update the price display
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
-}
-
-// Function to handle glazing option changes
-function glazingChange(element) {
-  updatePrice();
-}
-
-// Function to handle pack size option changes
-function packSizeChange(element) {
-  updatePrice();
 }
 
 // Initial update of the price when the page loads

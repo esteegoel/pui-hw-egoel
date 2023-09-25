@@ -32,23 +32,23 @@
     <div class="photo">
           <img class="prod" src="../assets/products/original-cinnamon-roll.jpg" width="600" height="600" alt="original"/>
 
-        <div class="details">
+        <d <div class="details">
           <div>
             <p class="details"> Customize our delicious, hand-made cinnamon roll to your liking! </p> 
             <h4 class="details">Glazing:</h4>
             <label for="glazing"></label> 
-            <select id="glazingOptions" onchange="glazingChange(this)">
+            <select id="glazingOptions" onchange="updatePrice()">
               <option value="Keep original">Keep original</option>
               <option value="Sugar milk">Sugar milk</option>
               <option value="Vanilla milk">Vanilla Milk</option>
-              <option value="Double chocolate">Double Chocolate</option>
+              <option value="Double Chocolate">Double Chocolate</option> 
             </select>
           </div>
-
+    
           <div>
             <h4 class="details">Pack size:</h4>
             <label for="size"></label>
-            <select id="sizeOptions" onchange="packSizeChange(this)">
+            <select id="sizeOptions" onchange="updatePrice()">
               <option value="1">1</option>
               <option value="3">3</option>
               <option value="6">6</option>
@@ -61,12 +61,12 @@
                 $2.49
               </span>
             </p>
-            <span class = "button"> 
+            <span class="button"> 
               Add to Cart 
             </span> 
           </h3>
         </div>
-    </div>
+      </div>
     
   </body>
 </html>
