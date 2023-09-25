@@ -30,7 +30,7 @@ function populateDropdownOptions() {
   // Populate options
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
-    option.value = size;
+    option.value = packSizeOptions[size];
     option.textContent = size;
     packSizeSelect.appendChild(option);
   }
