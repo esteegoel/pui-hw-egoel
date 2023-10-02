@@ -16,7 +16,7 @@ const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const rollType = params.get('roll');
 
-const rollInfo = rollsData[rollType];
+const rollInfo = rolls[rollType]; 
 
 const basePrice = rollInfo.basePrice;
 
@@ -58,16 +58,5 @@ document.getElementById("sizeOptions").addEventListener("change", updatePrice);
 populateDropdownOptions();
 updatePrice();
 
-
-const queryString = window.location.search;
-const params = new URLSearchParams(queryString);
-const rollType = params.get('roll');
-
-const rollInfo = rollsData[rollType];
-
-const imagePath = `../assets/products/${rollInfo.image}`;
-
-document.getElementById('rollImage').src = imagePath;
 document.getElementById('rollTitle').textContent = rollInfo.name;
-
-
+document.getElementById('rollImage').src = `../assets/products/${rollInfo.imageFile}`;
