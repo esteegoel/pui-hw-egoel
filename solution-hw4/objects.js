@@ -38,16 +38,21 @@ function populateDropdownOptions() {
 
 function updatePrice() {
   const glazingSelect = document.getElementById("glazingOptions");
-  const packSizeSelect = document.getElementById("sizeOptions");
+  const sizeSelect = document.getElementById("sizeOptions");
   const priceDisplay = document.getElementById("price");
 
-  const glazingPrice = parseFloat(glazingSelect.selectedOptions[0].value);
-  const packPrice = parseInt(packSizeSelect.value);
+  const selectedGlazing = glazingSelect.value;
+  const selectedSize = sizeSelect.value;
 
-  const totalPrice = (basePrice + glazingPrice) * packPrice;
-  
+  const basePrice = rollInfo.basePrice;
+
+  const totalPrice = (basePrice + rollInfo.glazingOptions[selectedGlazing]) * rollInfo.sizeOptions[selectedSize];
+
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
 }
+
+document.getElementById("glazingOptions").addEventListener("change", updatePrice);
+document.getElementById("sizeOptions").addEventListener("change", updatePrice);
 
 populateDropdownOptions();
 
