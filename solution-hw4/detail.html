@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src=“objects.js“ type="text/javascript"></script>
+    <script src="rollsData.js" type="text/javascript"></script> 
+    <script src="objects.js" type="text/javascript"></script>
     <title>Product Detail</title>
 </head>
+
 <body>
   <div class="header">
     <div>
@@ -31,36 +33,33 @@
   </div>
 
   <div class="photo">
-    <img class="prod" src="../assets/products/original-cinnamon-roll.jpg" width="600" height="600" alt="original"/>
+    <img class="prod" id="rollImage" src="../assets/products/original-cinnamon-roll.jpg" width="600" height="600" alt="original"/>
 
     <div class="details">
-      <div>
-        <p class="details"> Customize our delicious, hand-made cinnamon roll to your liking! </p> 
-        <h4 class="details">Glazing:</h4>
-        <label for="glazing"></label> 
-        <select name="glazing" id="glazingOptions" onchange="updatePrice()">
-        </select>
-      </div>
+        <h1 id="rollTitle"></h1>
 
-      <div>
-        <h4 class="details">Pack size:</h4>
-        <label for="size"></label>
-        <select name="size" id="sizeOptions" onchange="updatePrice()">
-        </select>
-      </div>
-      <h3 class="photo"> 
-        <p>
-          <span id="price">
-            $2.49
-          </span>
-        </p>
-        <span class="button"> 
-          Add to Cart 
-        </span> 
-      </h3>
+        <div>
+            <p class="details"> Customize our delicious, hand-made cinnamon roll to your liking! </p> 
+            <h4 class="details">Glazing:</h4>
+            <select name="glazing" id="glazingOptions" onchange="updatePrice()">
+            </select>
+        </div>
+
+        <div>
+            <h4 class="details">Pack size:</h4>
+            <select name="size" id="sizeOptions" onchange="updatePrice()">
+            </select>
+        </div>
+        
+        <h3 class="photo"> 
+            <p>
+                Total Price: <span id="price">$0.00</span>
+            </p>
+            <span class="button"> 
+                Add to Cart 
+            </span> 
+        </h3>
     </div>
   </div>
-
-  <script src="objects.js" type="text/javascript"></script>
 </body>
 </html>

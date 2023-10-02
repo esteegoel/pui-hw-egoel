@@ -12,14 +12,10 @@ const packSizeOptions = {
   '12': 10,
 };
 
-const basePrice = 2.49;
-
-// Embed options in java so it is not hardcoded in HTML 
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
-  const packSizeSelect = document.getElementById("sizeOptions");
+  const sizeSelect = document.getElementById("sizeOptions");
 
-  // Populate options
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
     option.value = glazingOptions[glazing];
@@ -27,12 +23,11 @@ function populateDropdownOptions() {
     glazingSelect.appendChild(option);
   }
 
-  // Populate options
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
     option.value = packSizeOptions[size];
     option.textContent = size;
-    packSizeSelect.appendChild(option);
+    sizeSelect.appendChild(option);
   }
 }
 
@@ -44,9 +39,9 @@ function updatePrice() {
   const selectedGlazing = glazingSelect.value;
   const selectedSize = sizeSelect.value;
 
-  const basePrice = rollInfo.basePrice;
+  const basePrice = 0.00; 
 
-  const totalPrice = (basePrice + rollInfo.glazingOptions[selectedGlazing]) * rollInfo.sizeOptions[selectedSize];
+  const totalPrice = (basePrice + glazingOptions[selectedGlazing]) * packSizeOptions[selectedSize];
 
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
 }
@@ -55,5 +50,15 @@ document.getElementById("glazingOptions").addEventListener("change", updatePrice
 document.getElementById("sizeOptions").addEventListener("change", updatePrice);
 
 populateDropdownOptions();
-
 updatePrice();
+
+const queryString = window.location.search;
+const params = new URLSearchParams(queryString);
+const rollType = params.get('roll');
+
+const rollInfo = rollsData[rollType];
+
+const imagePath = `../assets/products/${rollInfo.image}`;
+
+document.getElementById('rollImage').src = imagePath;
+
