@@ -12,9 +12,17 @@ const packSizeOptions = {
   '12': 10,
 };
 
+const queryString = window.location.search;
+const params = new URLSearchParams(queryString);
+const rollType = params.get('roll');
+
+const rollInfo = rollsData[rollType];
+
+const basePrice = rollInfo.basePrice;
+
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
-  const sizeSelect = document.getElementById("sizeOptions");
+  const packSizeSelect = document.getElementById("sizeOptions");
 
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
@@ -27,7 +35,7 @@ function populateDropdownOptions() {
     const option = document.createElement("option");
     option.value = packSizeOptions[size];
     option.textContent = size;
-    sizeSelect.appendChild(option);
+    packSizeSelect.appendChild(option);
   }
 }
 
@@ -39,8 +47,6 @@ function updatePrice() {
   const selectedGlazing = glazingSelect.value;
   const selectedSize = sizeSelect.value;
 
-  const basePrice = 0.00; 
-
   const totalPrice = (basePrice + glazingOptions[selectedGlazing]) * packSizeOptions[selectedSize];
 
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
@@ -51,6 +57,7 @@ document.getElementById("sizeOptions").addEventListener("change", updatePrice);
 
 populateDropdownOptions();
 updatePrice();
+
 
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
