@@ -60,37 +60,39 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    const cart = [];
+  <script type="text/javascript">
+      const cart = [];
 
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const rollType = params.get('roll');
+      const queryString = window.location.search;
+      const params = new URLSearchParams(queryString);
+      const rollType = params.get('roll');
 
-    const rollInfo = rollsData[rollType];
+      const rollInfo = rollsData[rollType];
 
-    document.getElementById('rollTitle').textContent = `${rollInfo.name} Cinnamon Roll`;
-    document.getElementById('rollImage').src = `../assets/products/${rollInfo.image}`;
-    
-    const glazingSelect = document.getElementById("glazingOptions");
-    const sizeSelect = document.getElementById("sizeOptions");
+      document.getElementById('rollTitle').textContent = `${rollInfo.name} Cinnamon Roll`;
+      document.getElementById('rollImage').src = `../assets/products/${rollInfo.image}`;
+      
+      const glazingSelect = document.getElementById("glazingOptions");
+      const sizeSelect = document.getElementById("sizeOptions");
 
-    for (const glazingOption in rollInfo.glazingOptions) {
-        const option = document.createElement("option");
-        option.value = glazingOption;
-        option.textContent = glazingOption;
-        glazingSelect.appendChild(option);
-      }
+      for (const glazingOption in rollInfo.glazingOptions) {
+          const option = document.createElement("option");
+          option.value = glazingOption;
+          option.textContent = glazingOption;
+          glazingSelect.appendChild(option);
+        }
 
-    for (const sizeOption in rollInfo.sizeOptions) {
-        const option = document.createElement("option");
-        option.value = sizeOption;
-        option.textContent = sizeOption;
-        sizeSelect.appendChild(option);
-    }
 
-    populateDropdownOptions();
-    updatePrice();
-</script>
+      for (const sizeOption in rollInfo.sizeOptions) {
+          const option = document.createElement("option");
+          option.value = sizeOption;
+          option.textContent = sizeOption;
+          sizeSelect.appendChild(option);
+        }
+
+      populateDropdownOptions();
+      updatePrice();
+      
+  </script>
 </body>
 </html>
