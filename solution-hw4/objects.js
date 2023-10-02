@@ -68,4 +68,6 @@ const rollInfo = rollsData[rollType];
 const imagePath = `../assets/products/${rollInfo.image}`;
 
 document.getElementById('rollImage').src = imagePath;
+document.getElementById('rollTitle').textContent = rollInfo.name;
+
 
