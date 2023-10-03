@@ -13,7 +13,7 @@ const packSizeOptions = {
   '12': 10,
 };
 
-// Get roll typw 
+// Get roll type 
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const rollType = params.get('roll');
@@ -26,6 +26,19 @@ const imagePath = `../assets/products/${rollInfo.imageFile}`;
 
 // Empty Cart 
 const cart = [];
+
+// Get reference to price display element
+const priceDisplay = document.getElementById("price");
+
+// Roll class definition
+class Roll {
+  constructor(name, glazing, size, basePrice) {
+    this.name = name;
+    this.glazing = glazing;
+    this.size = size;
+    this.basePrice = basePrice;
+  }
+}
 
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
@@ -57,6 +70,7 @@ function updatePrice() {
 
   const totalPrice = (rollInfo.basePrice + glazingOptions[selectedGlazing]) * packSizeOptions[selectedSize];
 
+  // Update the price display element
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
 
   // Create a new Roll object and add it to the cart array
