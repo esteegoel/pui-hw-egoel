@@ -87,7 +87,7 @@ const rollType = params.get('roll');
 const rollInfo = rollsData[rollType];
 const imagePath = `../assets/products/${rollInfo.imageFile}`;
 
-// Call functions to initialize product details
 document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
 document.getElementById('rollImage').src = imagePath;
-updatePrice();
+populateDropdownOptions(); // Populate the dropdowns when the page loads
+updatePrice(); // Update the initial price

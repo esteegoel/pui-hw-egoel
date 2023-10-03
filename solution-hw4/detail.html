@@ -57,19 +57,5 @@
     </div>
   </div>
 
-  <!-- Product details through JavaScript -->
-  <script>
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const rollType = params.get('roll');
-
-    const rollInfo = rollsData[rollType];
-    const imagePath = `../assets/products/${rollInfo.imageFile}`;
-
-    document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
-    document.getElementById('rollImage').src = imagePath;
-    populateDropdownOptions(); // Populate the dropdowns when the page loads
-    updatePrice(); // Update the initial price
-  </script>
 </body>
 </html>
