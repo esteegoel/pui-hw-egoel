@@ -24,6 +24,9 @@ const rollInfo = rollsData[rollType];
 // Image reference 
 const imagePath = `../assets/products/${rollInfo.imageFile}`;
 
+// Empty Cart 
+const cart = [];
+
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
@@ -48,7 +51,6 @@ function populateDropdownOptions() {
 function updatePrice() {
   const glazingSelect = document.getElementById("glazingOptions");
   const sizeSelect = document.getElementById("sizeOptions");
-  const priceDisplay = document.getElementById("price");
 
   const selectedGlazing = glazingSelect.value;
   const selectedSize = sizeSelect.value;
@@ -56,6 +58,13 @@ function updatePrice() {
   const totalPrice = (rollInfo.basePrice + glazingOptions[selectedGlazing]) * packSizeOptions[selectedSize];
 
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
+
+  // Create a new Roll object and add it to the cart array
+  const roll = new Roll(rollInfo.name, selectedGlazing, selectedSize, rollInfo.basePrice);
+  cart.push(roll);
+
+  // Print the cart array to the console
+  console.log("Cart:", cart);
 }
 
 document.getElementById("glazingOptions").addEventListener("change", updatePrice);
