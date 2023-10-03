@@ -18,22 +18,20 @@ const rollType = params.get('roll');
 
 const rollInfo = rolls[rollType]; 
 
-const basePrice = rollInfo.basePrice;
-
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
 
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
-    option.value = glazingOptions[glazing];
+    option.value = glazing;
     option.textContent = glazing;
     glazingSelect.appendChild(option);
   }
 
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
-    option.value = packSizeOptions[size];
+    option.value = size;
     option.textContent = size;
     packSizeSelect.appendChild(option);
   }
@@ -47,7 +45,7 @@ function updatePrice() {
   const selectedGlazing = glazingSelect.value;
   const selectedSize = sizeSelect.value;
 
-  const totalPrice = (basePrice + glazingOptions[selectedGlazing]) * packSizeOptions[selectedSize];
+  const totalPrice = (rollInfo.basePrice + glazingOptions[selectedGlazing]) * packSizeOptions[selectedSize];
 
   priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
 }
@@ -58,5 +56,5 @@ document.getElementById("sizeOptions").addEventListener("change", updatePrice);
 populateDropdownOptions();
 updatePrice();
 
-document.getElementById('rollTitle').textContent = rollInfo.name;
+document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
 document.getElementById('rollImage').src = `../assets/products/${rollInfo.imageFile}`;
