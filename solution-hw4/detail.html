@@ -31,7 +31,8 @@
   </div>
 
   <div class="photo">
-    <img class="prod" id="rollImage" src="../assets/products/original-cinnamon-roll.jpg" width="600" height="600" alt="original"/>
+    <!-- Dynamically set the image source based on the product -->
+    <img class="prod" id="rollImage" width="600" height="600" alt="original"/>
 
     <div class="details">
         <div>
@@ -56,8 +57,17 @@
     </div>
   </div>
 
+  <!-- Initialize the product details using JavaScript -->
   <script>
-    document.getElementById("price").textContent = "$" + rollInfo.basePrice.toFixed(2);
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const rollType = params.get('roll');
+
+    const rollInfo = rollsData[rollType];
+    const imagePath = `../assets/products/${rollInfo.imageFile}`;
+
+    document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
+    document.getElementById('rollImage').src = imagePath;
   </script>
 </body>
 </html>
