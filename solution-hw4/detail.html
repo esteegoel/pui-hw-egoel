@@ -57,17 +57,7 @@
     </div>
   </div>
 
-  <!-- Product details thru javascript -->
-  <script>
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const rollType = params.get('roll');
+  <script src="objects.js" type="text/javascript"></script>
 
-    const rollInfo = rollsData[rollType];
-    const imagePath = `../assets/products/${rollInfo.imageFile}`;
-
-    document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
-    document.getElementById('rollImage').src = imagePath;
-  </script>
 </body>
 </html>
