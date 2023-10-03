@@ -1,3 +1,4 @@
+// From HW3
 const glazingOptions = {
   'Keep original': 0.00,
   'Sugar milk': 0.00,
@@ -12,16 +13,22 @@ const packSizeOptions = {
   '12': 10,
 };
 
+// Get roll typw 
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const rollType = params.get('roll');
 
-const rollInfo = rolls[rollType]; 
+// Get roll info
+const rollInfo = rollsData[rollType];
+
+// Image reference 
+const imagePath = `../assets/products/${rollInfo.imageFile}`;
 
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
 
+  // Populate glazing options (HW3)
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
     option.value = glazing;
@@ -29,6 +36,7 @@ function populateDropdownOptions() {
     glazingSelect.appendChild(option);
   }
 
+  // Populate pack size options (HW3)
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
     option.value = size;
@@ -53,8 +61,11 @@ function updatePrice() {
 document.getElementById("glazingOptions").addEventListener("change", updatePrice);
 document.getElementById("sizeOptions").addEventListener("change", updatePrice);
 
+document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
+document.getElementById('rollImage').src = imagePath;
+
+console.log("rollType:", rollType);
+console.log("rollInfo:", rollInfo);
+
 populateDropdownOptions();
 updatePrice();
-
-document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
-document.getElementById('rollImage').src = `../assets/products/${rollInfo.imageFile}`;
