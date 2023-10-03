@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="rollsData.js" type="text/javascript"></script> 
-    <script src="objects.js" type="text/javascript"></script>
+    <script src="objects.js" type="text/javascript"></script> 
     <title>Product Detail</title>
 </head>
 <body>
@@ -57,7 +57,19 @@
     </div>
   </div>
 
-  <script src="objects.js" type="text/javascript"></script>
+  <!-- Product details through JavaScript -->
+  <script>
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const rollType = params.get('roll');
 
+    const rollInfo = rollsData[rollType];
+    const imagePath = `../assets/products/${rollInfo.imageFile}`;
+
+    document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
+    document.getElementById('rollImage').src = imagePath;
+    populateDropdownOptions(); // Populate the dropdowns when the page loads
+    updatePrice(); // Update the initial price
+  </script>
 </body>
 </html>

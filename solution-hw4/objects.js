@@ -42,27 +42,27 @@ const packSizeOptions = {
 
 const basePrice = 2.49;
 
-// Function to populate dropdown options
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
 
-  // Populate glazing options
+  // glazing
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
-    option.value = glazingOptions[glazing];
-    option.textContent = glazing;
+    option.value = glazing; // Use the glazing name as the value
+    option.textContent = glazing; // Use the glazing name as the displayed text
     glazingSelect.appendChild(option);
   }
 
-  // Populate pack size options
+  // size
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
-    option.value = packSizeOptions[size];
-    option.textContent = size;
+    option.value = size; // Use the size as the value
+    option.textContent = size; // Use the size as the displayed text
     packSizeSelect.appendChild(option);
   }
 }
+
 
 // Function to update product price
 function updatePrice() {
