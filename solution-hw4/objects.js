@@ -71,15 +71,17 @@ function updatePrice() {
   const sizeSelect = document.getElementById("sizeOptions");
   const priceDisplay = document.getElementById("price");
 
-  const glazingPrice = parseFloat(glazingSelect.selectedOptions[0].value);
+  const glazingPrice = parseFloat(glazingOptions[glazingSelect.value]);
   const packPrice = parseInt(sizeSelect.value);
 
-  const totalPrice = (basePrice + glazingPrice) * packPrice;
-
-  priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
+  if (!isNaN(glazingPrice) && !isNaN(packPrice)) {
+    const totalPrice = (basePrice + glazingPrice) * packPrice;
+    priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
+  } else {
+    // Handle the case where the selected values are not valid numbers
+    priceDisplay.textContent = "$0.00";
+  }
 }
-
-populateDropdownOptions();
 
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
@@ -89,7 +91,7 @@ if (rollType == null) {
 }
 
 const rollInfo = rollsData[rollType];
-
+    
 console.log(rollInfo)
 const imagePath = `../assets/products/${rollInfo.imageFile}`;
 console.log(imagePath);
