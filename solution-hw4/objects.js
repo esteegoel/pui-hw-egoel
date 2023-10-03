@@ -51,6 +51,7 @@ function populateDropdownOptions() {
     const option = document.createElement("option");
     option.value = glazing; // Use the glazing name as the value
     option.textContent = glazing; // Use the glazing name as the displayed text
+    // console.log(glazingSelect);
     glazingSelect.appendChild(option);
   }
 
@@ -83,10 +84,18 @@ populateDropdownOptions();
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const rollType = params.get('roll');
+if (rollType == null) {
+  rollType = "Original";
+}
 
 const rollInfo = rollsData[rollType];
-const imagePath = `../assets/products/${rollInfo.imageFile}`;
 
+console.log(rollInfo)
+const imagePath = `../assets/products/${rollInfo.imageFile}`;
+console.log(imagePath);
+
+// document.querySelector("#rollTitle")
+// console.log(document.getElementById('rollTitle'))
 document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
 document.getElementById('rollImage').src = imagePath;
 populateDropdownOptions(); // Populate the dropdowns when the page loads
