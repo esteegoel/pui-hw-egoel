@@ -1,3 +1,13 @@
+// Define the Roll class
+class Roll {
+  constructor(rollType, rollGlazing, packSize, basePrice) {
+    this.type = rollType;
+    this.glazing = rollGlazing;
+    this.size = packSize;
+    this.basePrice = basePrice;
+  }
+}
+
 // Import rollsData
 const rollsData = {
   "Original": {
@@ -74,11 +84,15 @@ function updatePrice() {
   const glazingPrice = parseFloat(glazingOptions[glazingSelect.value]);
   const packPrice = parseInt(sizeSelect.value);
 
+  const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0];
+
+  const rollInfo = rollsData[selectedRollType]; // Get roll info
+  const basePrice = rollInfo.basePrice; // Use the base price 
+
   if (!isNaN(glazingPrice) && !isNaN(packPrice)) {
     const totalPrice = (basePrice + glazingPrice) * packPrice;
     priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
   } else {
-    // Handle the case where the selected values are not valid numbers
     priceDisplay.textContent = "$0.00";
   }
 }
@@ -88,6 +102,29 @@ const params = new URLSearchParams(queryString);
 const rollType = params.get('roll');
 if (rollType == null) {
   rollType = "Original";
+}
+
+const cart = []; // Initialize an empty cart array
+
+// ...
+
+function addToCart() {
+  const glazingSelect = document.getElementById("glazingOptions");
+  const sizeSelect = document.getElementById("sizeOptions");
+
+  const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0]; // Extract the roll type from the title
+  const selectedGlazing = glazingSelect.value;
+  const selectedSize = sizeSelect.value;
+
+  const rollInfo = rollsData[selectedRollType]; // Get roll info based on the selected roll type
+  const basePrice = rollInfo.basePrice; // Use the base price from the selected roll type
+
+  // Create an instance of the Roll class and add it to the cart array
+  const roll = new Roll(selectedRollType, selectedGlazing, selectedSize, basePrice);
+  cart.push(roll);
+
+  // Print the entire cart array to the console
+  console.log("Cart:", cart);
 }
 
 const rollInfo = rollsData[rollType];
