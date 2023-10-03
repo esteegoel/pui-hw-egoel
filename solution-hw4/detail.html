@@ -51,11 +51,13 @@
             <p>
                 Total Price: <span id="price">$0.00</span>
             </p>
-            <span class="button"> 
-                Add to Cart 
-            </span> 
+            <span class="button" onclick="addToCart()">Add to Cart</span>
         </h3>
     </div>
   </div>
+
+  <script>
+    document.getElementById("price").textContent = "$" + rollInfo.basePrice.toFixed(2);
+  </script>
 </body>
 </html>
