@@ -6,7 +6,6 @@ class Roll {
     this.size = packSize;
     this.basePrice = basePrice;
   }
-}
 
   // Function to calculate the item price
   calculatePrice() {
@@ -14,6 +13,7 @@ class Roll {
     const packPrice = packSizeOptions[this.size];
     return (this.basePrice + glazingPrice) * packPrice;
   }
+}
 
 // Import rollsData
 const rollsData = {
