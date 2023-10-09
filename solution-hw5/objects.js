@@ -7,8 +7,8 @@ class Roll {
     this.basePrice = basePrice;
   }
 
-  // price calc function
-  calculatePrice(glazingOptions, packSizeOptions) {
+  // Function to calculate the item price
+  calculatePrice() {
     const glazingPrice = parseFloat(glazingOptions[this.glazing]);
     const packPrice = packSizeOptions[this.size];
     return (this.basePrice + glazingPrice) * packPrice;
@@ -81,33 +81,23 @@ function populateDropdownOptions() {
 
 const cart = [];
 
-// Create four new Roll objects & add them to the cart
-const roll1 = new Roll('Original', 'Sugar Milk', 1, 2.49);
-const roll2 = new Roll('Walnut', 'Vanilla Milk', 12, 39.90);
-const roll3 = new Roll('Raisin', 'Sugar Milk', 3, 8.97);
-const roll4 = new Roll('Apple', 'Original', 3, 10.47);
-
-// Calculate prices and add the objects to the cart
-cart.push({ roll: roll1, price: roll1.calculatePrice(glazingOptions, packSizeOptions) });
-cart.push({ roll: roll2, price: roll2.calculatePrice(glazingOptions, packSizeOptions) });
-cart.push({ roll: roll3, price: roll3.calculatePrice(glazingOptions, packSizeOptions) });
-cart.push({ roll: roll4, price: roll4.calculatePrice(glazingOptions, packSizeOptions) });
-
-
-function addToCartAndUpdatePage(roll) {
+// Function to add an item to the cart
+function addToCart(roll) {
   cart.push({ roll, price: roll.calculatePrice() });
-  displayCart();
-  updateTotalPrice();
 }
 
-function removeItem(index) {
-  if (index >= 0 && index < cart.length) {
-    cart.splice(index, 1);
-    displayCart();
-    updateTotalPrice();
-  }
-}
+// Create four new Roll objects & add them to the cart
+const roll1 = new Roll('Original', 'Sugar milk', '1', 2.49);
+const roll2 = new Roll('Walnut', 'Vanilla milk', '12', 39.90);
+const roll3 = new Roll('Raisin', 'Sugar milk', '3', 8.97);
+const roll4 = new Roll('Apple', 'Keep original', '3', 10.47);
 
+addToCart(roll1);
+addToCart(roll2);
+addToCart(roll3);
+addToCart(roll4);
+
+// Function to display the cart
 function displayCart() {
   const cartItemsContainer = document.getElementById('cart-items');
   cartItemsContainer.innerHTML = '';
@@ -117,7 +107,7 @@ function displayCart() {
     cartItemDiv.classList.add('cart-item');
 
     const itemName = document.createElement('p');
-    itemName.textContent = `${cartItem.roll.type}`;
+    itemName.textContent = `${cartItem.roll.type} Roll`;
     cartItemDiv.appendChild(itemName);
 
     const itemDetails = document.createElement('p');
@@ -133,6 +123,16 @@ function displayCart() {
   });
 }
 
+// Function to remove an item from the cart
+function removeItem(index) {
+  if (index >= 0 && index < cart.length) {
+    cart.splice(index, 1);
+    displayCart();
+    updateTotalPrice();
+  }
+}
+
+// Function to update the total price
 function updateTotalPrice() {
   const totalPriceDisplay = document.getElementById('total-price');
 
