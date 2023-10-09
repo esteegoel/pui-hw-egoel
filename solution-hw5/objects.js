@@ -6,6 +6,7 @@ class Roll {
     this.size = packSize;
     this.basePrice = basePrice;
   }
+}
 
   // Function to calculate the item price
   calculatePrice() {
@@ -60,7 +61,6 @@ function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
 
-  // Clear existing options
   glazingSelect.innerHTML = "";
   packSizeSelect.innerHTML = "";
 
@@ -81,7 +81,6 @@ function populateDropdownOptions() {
   }
 }
 
-// Initialize cart array
 const cart = [];
 
 function addToCartAndUpdatePage(roll) {
@@ -106,8 +105,6 @@ function displayCart() {
     const cartItemDiv = document.createElement('div');
     cartItemDiv.classList.add('cart-item');
 
-    // ... Create elements for item details ...
-
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => removeItem(index));
@@ -129,7 +126,3 @@ function updateTotalPrice() {
 
 populateDropdownOptions();
 displayCart();
-
-// Example usage to add a roll to the cart and update the page
-const rollToAdd = new Roll('Original', 'Sugar Milk', 1, 2.49);
-addToCartAndUpdatePage(rollToAdd);
