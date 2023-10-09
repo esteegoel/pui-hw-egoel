@@ -69,58 +69,53 @@ document.addEventListener('DOMContentLoaded', function () {
   function displayCartItem(roll) {
     // container
     const cartItem = document.createElement('div');
-    cartItem.className = 'cart-item';
-
+    cartItem.className = 'item';
+  
     // image element
     const rollImage = document.createElement('img');
-    rollImage.className = 'cart-item-image';
+    rollImage.className = 'prod';
     rollImage.src = `../assets/products/${rollsData[roll.type].imageFile}`;
     rollImage.alt = roll.type;
-
+  
     // roll detail
     const rollDetails = document.createElement('div');
-    rollDetails.className = 'cart-item-details';
-
+    rollDetails.className = 'pic';
+  
     // create paragraphs
     const nameParagraph = document.createElement('p');
-    nameParagraph.textContent = `Name: ${roll.type}`;
-
+    nameParagraph.textContent = roll.type;
+  
     const glazingParagraph = document.createElement('p');
     glazingParagraph.textContent = `Glazing: ${roll.glazing}`;
-
+  
     const packSizeParagraph = document.createElement('p');
     packSizeParagraph.textContent = `Pack Size: ${roll.size}`;
-
-    const priceParagraph = document.createElement('p');
-    priceParagraph.textContent = `Price: $${roll.itemPrice.toFixed(2)}`;
-
+  
     // remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
-    removeButton.className = 'remove-button';
-    removeButton.dataset.rollType = roll.type; 
-
+    removeButton.className = 'button';
+  
     removeButton.addEventListener('click', () => {
         removeItemFromCart(roll);
-        cartItem.remove(); 
-        updateTotalPrice(); 
+        cartItem.remove(); // Remove the DOM element for the cart item
+        updateTotalPrice(); // Update the total price after removal
     });
-
+  
     rollDetails.appendChild(nameParagraph);
     rollDetails.appendChild(glazingParagraph);
     rollDetails.appendChild(packSizeParagraph);
-    rollDetails.appendChild(priceParagraph);
-
+  
     cartItem.appendChild(rollImage);
     cartItem.appendChild(rollDetails);
     cartItem.appendChild(removeButton);
-
+  
     const cartContainer = document.getElementById('cart-container');
     cartContainer.appendChild(cartItem);
   }
-
-  // looping
+  
   cart.forEach(displayCartItem);
+  
 
   function removeItemFromCart(roll) {
     const index = cart.indexOf(roll);
