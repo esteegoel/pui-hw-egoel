@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     // create paragraphs
     const nameParagraph = document.createElement('p');
-    nameParagraph.textContent = roll.type;
+    nameParagraph.textContent = `${roll.type} Cinnamon Roll`;
   
     const glazingParagraph = document.createElement('p');
     glazingParagraph.textContent = `Glazing: ${roll.glazing}`;
