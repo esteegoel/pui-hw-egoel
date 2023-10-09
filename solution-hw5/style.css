@@ -54,6 +54,9 @@ a:hover, a:active { /* W3 Schools */
 
 .prod {
     border: 2px solid black;
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
   }
 
 .button { /* W3 Schools */
@@ -124,6 +127,15 @@ div {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+.pic h5 {
+  font-size: 14px;
+  font-family: 'arial';
+  font-weight: lighter;
+  margin: 0; 
+  text-decoration: underline; 
+  cursor: pointer; 
 }
 
 .details {
