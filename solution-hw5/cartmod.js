@@ -42,11 +42,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     calculatePrice() {
-      const glazingPrice = glazingOptions[this.glazing] || 0; // get glazing price
-      const packPrice = packSizeOptions[this.size] || 1; // get pack size price
-
-      this.itemPrice = (this.basePrice + glazingPrice) * packPrice;
-    }
+      // get rolls base price
+      const basePrice = rollsData[this.type].basePrice;
+      
+      // glazing price, default to zero 
+      const glazingPrice = rollsData[this.type].glazingPrice || 0;
+      
+      // pack size import 
+      const packPrice = this.size;
+    
+      // actual price calculation 
+      this.itemPrice = (basePrice + glazingPrice) * packPrice;
+    }    
   }
 
   // Create Roll objects
