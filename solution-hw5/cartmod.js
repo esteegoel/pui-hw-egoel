@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     // image element
     const rollImage = document.createElement('img');
-    rollImage.className = 'prod';
+    rollImage.className = 'products';
     rollImage.src = `../assets/products/${rollsData[roll.type].imageFile}`;
     rollImage.alt = roll.type;
   

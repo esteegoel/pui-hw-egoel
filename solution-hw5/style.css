@@ -54,6 +54,9 @@ a:hover, a:active { /* W3 Schools */
 
 .prod {
     border: 2px solid black;
+  }
+
+.products {
     width: 200px;
     height: 200px;
     border: 2px solid black;
