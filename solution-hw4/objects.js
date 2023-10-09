@@ -148,3 +148,61 @@ function displayCart() {
 }
 
 displayCart();
+
+function appendCartItem(roll) {
+  const cartItemsContainer = document.getElementById('cart-items'); 
+
+  const cartItemDiv = document.createElement('div');
+  cartItemDiv.classList.add('cart-item');
+
+  const itemImage = document.createElement('img');
+  itemImage.src = `../assets/products/${rollsData[roll.type].imageFile}`;
+  itemImage.alt = roll.type;
+  cartItemDiv.appendChild(itemImage);
+
+  const itemDetails = document.createElement('div');
+  itemDetails.classList.add('item-details');
+
+  const itemName = document.createElement('h4');
+  itemName.textContent = `${roll.type} Roll`;
+  itemDetails.appendChild(itemName);
+
+  const itemGlazing = document.createElement('p');
+  itemGlazing.textContent = `Glazing: ${roll.glazing}`;
+  itemDetails.appendChild(itemGlazing);
+
+  const itemPackSize = document.createElement('p');
+  itemPackSize.textContent = `Pack Size: ${roll.size}`;
+  itemDetails.appendChild(itemPackSize);
+
+  const itemPrice = document.createElement('p');
+  itemPrice.textContent = `Price: $${roll.price.toFixed(2)}`;
+  itemDetails.appendChild(itemPrice);
+
+  const removeButton = document.createElement('button');
+  removeButton.textContent = 'Remove';
+  removeButton.addEventListener('click', () => removeItem(cart.indexOf(roll)));
+  itemDetails.appendChild(removeButton);
+
+  cartItemDiv.appendChild(itemDetails);
+  cartItemsContainer.appendChild(cartItemDiv);
+}
+
+function updateTotalPrice() {
+  const totalPriceDisplay = document.getElementById('total-price');
+
+  const total = cart.reduce((accumulator, cartItem) => {
+    return accumulator + cartItem.price;
+  }, 0);
+
+  totalPriceDisplay.textContent = `$${total.toFixed(2)}`;
+}
+
+function addToCartAndUpdatePage(roll) {
+  cart.push({ roll, price: roll.calculatePrice() });
+  appendCartItem(roll); 
+  updateTotalPrice(); 
+}
+
+const rollToAdd = new Roll('Original', 'Sugar Milk', 1, 2.49);
+addToCartAndUpdatePage(rollToAdd);
