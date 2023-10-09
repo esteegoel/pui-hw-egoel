@@ -91,20 +91,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const packSizeParagraph = document.createElement('p');
     packSizeParagraph.textContent = `Pack Size: ${roll.size}`;
   
+    // Price display
+    const priceParagraph = document.createElement('p');
+    priceParagraph.textContent = `Price: $${roll.itemPrice.toFixed(2)}`;
+    priceParagraph.className = 'price';
+  
     // remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
-    removeButton.className = 'button';
+    removeButton.className = 'remove-botton';
   
     removeButton.addEventListener('click', () => {
-        removeItemFromCart(roll);
-        cartItem.remove(); // Remove the DOM element for the cart item
-        updateTotalPrice(); // Update the total price after removal
+      removeItemFromCart(roll);
+      cartItem.remove();
+      updateTotalPrice();
     });
   
     rollDetails.appendChild(nameParagraph);
     rollDetails.appendChild(glazingParagraph);
     rollDetails.appendChild(packSizeParagraph);
+    rollDetails.appendChild(priceParagraph); // Append the price paragraph
   
     cartItem.appendChild(rollImage);
     cartItem.appendChild(rollDetails);
@@ -113,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cartContainer = document.getElementById('cart-container');
     cartContainer.appendChild(cartItem);
   }
-  
+    
   cart.forEach(displayCartItem);
   
 

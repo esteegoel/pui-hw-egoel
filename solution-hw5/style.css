@@ -132,13 +132,10 @@ div {
   justify-content: flex-end;
 }
 
-.pic h5 {
+.pic h5 .remove-button {
   font-size: 14px;
-  font-family: 'arial';
+  font-family: 'verdana';
   font-weight: lighter;
-  margin: 0; 
-  text-decoration: underline; 
-  cursor: pointer; 
 }
 
 .details {
@@ -212,4 +209,11 @@ select {
   border-radius: 0;
   color: #000;
   position: relative;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: 280px;
 }
