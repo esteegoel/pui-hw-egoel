@@ -8,7 +8,7 @@ class Roll {
   }
 
   // price calc function
-  calculatePrice() {
+  calculatePrice(glazingOptions, packSizeOptions) {
     const glazingPrice = parseFloat(glazingOptions[this.glazing]);
     const packPrice = packSizeOptions[this.size];
     return (this.basePrice + glazingPrice) * packPrice;
@@ -88,10 +88,11 @@ const roll3 = new Roll('Raisin', 'Sugar Milk', 3, 8.97);
 const roll4 = new Roll('Apple', 'Original', 3, 10.47);
 
 // Calculate prices and add the objects to the cart
-cart.push({ roll: roll1, price: roll1.calculatePrice() });
-cart.push({ roll: roll2, price: roll2.calculatePrice() });
-cart.push({ roll: roll3, price: roll3.calculatePrice() });
-cart.push({ roll: roll4, price: roll4.calculatePrice() });
+cart.push({ roll: roll1, price: roll1.calculatePrice(glazingOptions, packSizeOptions) });
+cart.push({ roll: roll2, price: roll2.calculatePrice(glazingOptions, packSizeOptions) });
+cart.push({ roll: roll3, price: roll3.calculatePrice(glazingOptions, packSizeOptions) });
+cart.push({ roll: roll4, price: roll4.calculatePrice(glazingOptions, packSizeOptions) });
+
 
 function addToCartAndUpdatePage(roll) {
   cart.push({ roll, price: roll.calculatePrice() });
