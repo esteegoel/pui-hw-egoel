@@ -79,7 +79,19 @@ function populateDropdownOptions() {
   }
 }
 
-const cart = [];
+cconst cart = [];
+
+// add 4 initial items
+const roll1 = new Roll('Original', 'Sugar Milk', 1, 2.49);
+const roll2 = new Roll('Walnut', 'Vanilla Milk', 12, 39.90);
+const roll3 = new Roll('Raisin', 'Sugar Milk', 3, 8.97);
+const roll4 = new Roll('Apple', 'Original', 3, 10.47);
+
+// calculate and add prices
+cart.push({ roll: roll1, price: roll1.calculatePrice() });
+cart.push({ roll: roll2, price: roll2.calculatePrice() });
+cart.push({ roll: roll3, price: roll3.calculatePrice() });
+cart.push({ roll: roll4, price: roll4.calculatePrice() });
 
 function addToCartAndUpdatePage(roll) {
   cart.push({ roll, price: roll.calculatePrice() });
@@ -124,3 +136,4 @@ function updateTotalPrice() {
 
 populateDropdownOptions();
 displayCart();
+updateTotalPrice();
