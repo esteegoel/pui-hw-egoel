@@ -7,7 +7,7 @@ class Roll {
     this.basePrice = basePrice;
   }
 
-  // Function to calculate the item price
+  // price calc function
   calculatePrice() {
     const glazingPrice = parseFloat(glazingOptions[this.glazing]);
     const packPrice = packSizeOptions[this.size];
@@ -64,7 +64,6 @@ function populateDropdownOptions() {
   glazingSelect.innerHTML = "";
   packSizeSelect.innerHTML = "";
 
-  // Populate glazing options
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
     option.value = glazing;
@@ -72,7 +71,6 @@ function populateDropdownOptions() {
     glazingSelect.appendChild(option);
   }
 
-  // Populate pack size options
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
     option.value = size;
