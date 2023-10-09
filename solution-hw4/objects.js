@@ -74,7 +74,6 @@ function populateDropdownOptions() {
   }
 }
 
-
 // Function to update product price
 function updatePrice() {
   const glazingSelect = document.getElementById("glazingOptions");
@@ -97,45 +96,55 @@ function updatePrice() {
   }
 }
 
-const queryString = window.location.search;
-const params = new URLSearchParams(queryString);
-const rollType = params.get('roll');
-if (rollType == null) {
-  rollType = "Original";
+// Initialize cart array
+const cart = [];
+
+// Create four new Roll objects & add
+const roll1 = new Roll('Original', 'Sugar Milk', 1, 2.49);
+const roll2 = new Roll('Walnut', 'Vanilla Milk', 12, 39.90);
+const roll3 = new Roll('Raisin', 'Sugar Milk', 3, 8.97);
+const roll4 = new Roll('Apple', 'Original', 3, 10.47);
+
+// Calculate prices
+const price1 = roll1.calculatePrice();
+const price2 = roll2.calculatePrice();
+const price3 = roll3.calculatePrice();
+const price4 = roll4.calculatePrice();
+
+// Add the obj to cart with prices
+cart.push({ roll: roll1, price: price1 });
+cart.push({ roll: roll2, price: price2 });
+cart.push({ roll: roll3, price: price3 });
+cart.push({ roll: roll4, price: price4 });
+
+function removeItem(index) {
+  cart.splice(index, 1); 
+  displayCart(); 
 }
 
-const cart = []; // Initialize an empty cart array
+function displayCart() {
+  const cartItemsContainer = document.getElementById('cart-items'); 
+  cartItemsContainer.innerHTML = ''; 
 
-// ...
+  cart.forEach((cartItem, index) => {
+    const cartItemDiv = document.createElement('div');
+    cartItemDiv.classList.add('cart-item');
 
-function addToCart() {
-  const glazingSelect = document.getElementById("glazingOptions");
-  const sizeSelect = document.getElementById("sizeOptions");
+    const itemName = document.createElement('h4');
+    itemName.textContent = `${cartItem.roll.type} Roll`;
+    cartItemDiv.appendChild(itemName);
 
-  const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0]; // Extract the roll type from the title
-  const selectedGlazing = glazingSelect.value;
-  const selectedSize = sizeSelect.value;
+    const itemDetails = document.createElement('p');
+    itemDetails.textContent = `Glazing: ${cartItem.roll.glazing}\nPack Size: ${cartItem.roll.size}\nPrice: $${cartItem.price.toFixed(2)}`;
+    cartItemDiv.appendChild(itemDetails);
 
-  const rollInfo = rollsData[selectedRollType]; // Get roll info based on the selected roll type
-  const basePrice = rollInfo.basePrice; // Use the base price from the selected roll type
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => removeItem(index));
+    cartItemDiv.appendChild(removeButton);
 
-  // Create an instance of the Roll class and add it to the cart array
-  const roll = new Roll(selectedRollType, selectedGlazing, selectedSize, basePrice);
-  cart.push(roll);
-
-  // Print the entire cart array to the console
-  console.log("Cart:", cart);
+    cartItemsContainer.appendChild(cartItemDiv);
+  });
 }
 
-const rollInfo = rollsData[rollType];
-    
-console.log(rollInfo)
-const imagePath = `../assets/products/${rollInfo.imageFile}`;
-console.log(imagePath);
-
-// document.querySelector("#rollTitle")
-// console.log(document.getElementById('rollTitle'))
-document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
-document.getElementById('rollImage').src = imagePath;
-populateDropdownOptions(); // Populate the dropdowns when the page loads
-updatePrice(); // Update the initial price
+displayCart();
