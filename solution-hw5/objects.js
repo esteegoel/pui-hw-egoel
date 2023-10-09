@@ -1,4 +1,4 @@
-// Define the Roll class
+// Define  Roll class
 class Roll {
   constructor(rollType, rollGlazing, packSize, basePrice) {
     this.type = rollType;
@@ -50,32 +50,20 @@ const packSizeOptions = {
   '12': 10,
 };
 
-const basePrice = 2.49;
+// Initialize the shopping cart
+const cart = [];
 
-function populateDropdownOptions() {
-  const glazingSelect = document.getElementById("glazingOptions");
-  const packSizeSelect = document.getElementById("sizeOptions");
+// Create Roll objects and add them to the cart
+const rollsToAdd = [
+  new Roll("Original", "Sugar Milk", 1, 2.49),
+  new Roll("Walnut", "Vanilla Milk", 12, 3.99),
+  new Roll("Raisin", "Sugar Milk", 3, 2.99),
+  new Roll("Apple", "Original", 3, 3.49)
+];
 
-  // glazing
-  for (const glazing in glazingOptions) {
-    const option = document.createElement("option");
-    option.value = glazing; // Use the glazing name as the value
-    option.textContent = glazing; // Use the glazing name as the displayed text
-    // console.log(glazingSelect);
-    glazingSelect.appendChild(option);
-  }
+cart.push(...rollsToAdd);
 
-  // size
-  for (const size in packSizeOptions) {
-    const option = document.createElement("option");
-    option.value = size; // Use the size as the value
-    option.textContent = size; // Use the size as the displayed text
-    packSizeSelect.appendChild(option);
-  }
-}
-
-
-// Function to update product price
+// update product price
 function updatePrice() {
   const glazingSelect = document.getElementById("glazingOptions");
   const sizeSelect = document.getElementById("sizeOptions");
@@ -86,8 +74,8 @@ function updatePrice() {
 
   const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0];
 
-  const rollInfo = rollsData[selectedRollType]; // Get roll info
-  const basePrice = rollInfo.basePrice; // Use the base price 
+  const rollInfo = rollsData[selectedRollType];
+  const basePrice = rollInfo.basePrice;
 
   if (!isNaN(glazingPrice) && !isNaN(packPrice)) {
     const totalPrice = (basePrice + glazingPrice) * packPrice;
@@ -97,45 +85,47 @@ function updatePrice() {
   }
 }
 
-const queryString = window.location.search;
-const params = new URLSearchParams(queryString);
-const rollType = params.get('roll');
-if (rollType == null) {
-  rollType = "Original";
-}
-
-const cart = []; // Initialize an empty cart array
-
-// ...
-
-function addToCart() {
+function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
-  const sizeSelect = document.getElementById("sizeOptions");
+  const packSizeSelect = document.getElementById("sizeOptions");
 
-  const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0]; // Extract the roll type from the title
-  const selectedGlazing = glazingSelect.value;
-  const selectedSize = sizeSelect.value;
+  // Clear 
+  glazingSelect.innerHTML = "";
+  packSizeSelect.innerHTML = "";
 
-  const rollInfo = rollsData[selectedRollType]; // Get roll info based on the selected roll type
-  const basePrice = rollInfo.basePrice; // Use the base price from the selected roll type
+  for (const glazing in glazingOptions) {
+    const option = document.createElement("option");
+    option.value = glazing;
+    option.textContent = glazing;
+    glazingSelect.appendChild(option);
+  }
 
-  // Create an instance of the Roll class and add it to the cart array
-  const roll = new Roll(selectedRollType, selectedGlazing, selectedSize, basePrice);
-  cart.push(roll);
-
-  // Print the entire cart array to the console
-  console.log("Cart:", cart);
+  for (const size in packSizeOptions) {
+    const option = document.createElement("option");
+    option.value = size;
+    option.textContent = size;
+    packSizeSelect.appendChild(option);
+  }
 }
 
-const rollInfo = rollsData[rollType];
-    
-console.log(rollInfo)
-const imagePath = `../assets/products/${rollInfo.imageFile}`;
-console.log(imagePath);
+function initializePage() {
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+  let rollType = params.get('roll') || "Original";
 
-// document.querySelector("#rollTitle")
-// console.log(document.getElementById('rollTitle'))
-document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
-document.getElementById('rollImage').src = imagePath;
-populateDropdownOptions(); // Populate the dropdowns when the page loads
-updatePrice(); // Update the initial price
+  const rollInfo = rollsData[rollType];
+  const imagePath = `../assets/products/${rollInfo.imageFile}`;
+
+  document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
+  document.getElementById('rollImage').src = imagePath;
+
+  populateDropdownOptions();
+  updatePrice();
+}
+
+// Add event listeners for buttons
+document.getElementById("addToCartButton").addEventListener("click", addToCart);
+document.getElementById("updatePriceButton").addEventListener("click", updatePrice);
+
+// Call initializePage when the page loads
+window.addEventListener("load", initializePage);
