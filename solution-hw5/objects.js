@@ -1,4 +1,4 @@
-// Define the Roll class
+// define roll class
 class Roll {
   constructor(rollType, rollGlazing, packSize, basePrice) {
     this.type = rollType;
@@ -7,7 +7,7 @@ class Roll {
     this.basePrice = basePrice;
   }
 
-  // Function to calculate the item price
+  // price calc
   calculatePrice() {
     const glazingPrice = parseFloat(glazingOptions[this.glazing]);
     const packPrice = packSizeOptions[this.size];
@@ -81,12 +81,12 @@ function populateDropdownOptions() {
 
 const cart = [];
 
-// Function to add an item to the cart
+// add each item to cart
 function addToCart(roll) {
   cart.push({ roll, price: roll.calculatePrice() });
 }
 
-// Create four new Roll objects & add them to the cart
+// initialize w. four examples items
 const roll1 = new Roll('Original', 'Sugar milk', '1', 2.49);
 const roll2 = new Roll('Walnut', 'Vanilla milk', '12', 39.90);
 const roll3 = new Roll('Raisin', 'Sugar milk', '3', 8.97);
@@ -97,7 +97,6 @@ addToCart(roll2);
 addToCart(roll3);
 addToCart(roll4);
 
-// Function to display the cart
 function displayCart() {
   const cartItemsContainer = document.getElementById('cart-items');
   cartItemsContainer.innerHTML = '';
@@ -123,7 +122,7 @@ function displayCart() {
   });
 }
 
-// Function to remove an item from the cart
+// remove item
 function removeItem(index) {
   if (index >= 0 && index < cart.length) {
     cart.splice(index, 1);
@@ -132,7 +131,7 @@ function removeItem(index) {
   }
 }
 
-// Function to update the total price
+// price update based on items
 function updateTotalPrice() {
   const totalPriceDisplay = document.getElementById('total-price');
 
@@ -143,5 +142,27 @@ function updateTotalPrice() {
   totalPriceDisplay.textContent = `$${total.toFixed(2)}`;
 }
 
+// get URL params
+function getURLParameters() {
+  const params = new URLSearchParams(window.location.search);
+  const rollType = params.get('roll'); // Get param
+  return rollType;
+}
+
+// add based on roll type
+function addToCartBasedOnRollType(rollType) {
+  if (rollType in rollsData) {
+      const rollInfo = rollsData[rollType];
+      const roll = new Roll(rollType, 'Keep original', '1', rollInfo.basePrice);
+      addToCart(roll); // Add item
+  }
+}
+
+// initilize cart
+const rollTypeFromURL = getURLParameters();
+addToCartBasedOnRollType(rollTypeFromURL);
+
+// call all functions
 populateDropdownOptions();
 displayCart();
+updateTotalPrice();
