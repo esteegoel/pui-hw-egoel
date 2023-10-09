@@ -6,7 +6,13 @@ class Roll {
     this.size = packSize;
     this.basePrice = basePrice;
   }
-}
+
+  // Function to calculate the item price
+  calculatePrice() {
+    const glazingPrice = parseFloat(glazingOptions[this.glazing]);
+    const packPrice = packSizeOptions[this.size];
+    return (this.basePrice + glazingPrice) * packPrice;
+  }
 
 // Import rollsData
 const rollsData = {
@@ -50,93 +56,57 @@ const packSizeOptions = {
   '12': 10,
 };
 
-const basePrice = 2.49;
-
 function populateDropdownOptions() {
   const glazingSelect = document.getElementById("glazingOptions");
   const packSizeSelect = document.getElementById("sizeOptions");
 
-  // glazing
+  // Clear existing options
+  glazingSelect.innerHTML = "";
+  packSizeSelect.innerHTML = "";
+
+  // Populate glazing options
   for (const glazing in glazingOptions) {
     const option = document.createElement("option");
-    option.value = glazing; // Use the glazing name as the value
-    option.textContent = glazing; // Use the glazing name as the displayed text
-    // console.log(glazingSelect);
+    option.value = glazing;
+    option.textContent = glazing;
     glazingSelect.appendChild(option);
   }
 
-  // size
+  // Populate pack size options
   for (const size in packSizeOptions) {
     const option = document.createElement("option");
-    option.value = size; // Use the size as the value
-    option.textContent = size; // Use the size as the displayed text
+    option.value = size;
+    option.textContent = size;
     packSizeSelect.appendChild(option);
-  }
-}
-
-// Function to update product price
-function updatePrice() {
-  const glazingSelect = document.getElementById("glazingOptions");
-  const sizeSelect = document.getElementById("sizeOptions");
-  const priceDisplay = document.getElementById("price");
-
-  const glazingPrice = parseFloat(glazingOptions[glazingSelect.value]);
-  const packPrice = parseInt(sizeSelect.value);
-
-  const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0];
-
-  const rollInfo = rollsData[selectedRollType]; // Get roll info
-  const basePrice = rollInfo.basePrice; // Use the base price 
-
-  if (!isNaN(glazingPrice) && !isNaN(packPrice)) {
-    const totalPrice = (basePrice + glazingPrice) * packPrice;
-    priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
-  } else {
-    priceDisplay.textContent = "$0.00";
   }
 }
 
 // Initialize cart array
 const cart = [];
 
-// Create four new Roll objects & add
-const roll1 = new Roll('Original', 'Sugar Milk', 1, 2.49);
-const roll2 = new Roll('Walnut', 'Vanilla Milk', 12, 39.90);
-const roll3 = new Roll('Raisin', 'Sugar Milk', 3, 8.97);
-const roll4 = new Roll('Apple', 'Original', 3, 10.47);
-
-// Calculate prices
-const price1 = roll1.calculatePrice();
-const price2 = roll2.calculatePrice();
-const price3 = roll3.calculatePrice();
-const price4 = roll4.calculatePrice();
-
-// Add the obj to cart with prices
-cart.push({ roll: roll1, price: price1 });
-cart.push({ roll: roll2, price: price2 });
-cart.push({ roll: roll3, price: price3 });
-cart.push({ roll: roll4, price: price4 });
+function addToCartAndUpdatePage(roll) {
+  cart.push({ roll, price: roll.calculatePrice() });
+  displayCart();
+  updateTotalPrice();
+}
 
 function removeItem(index) {
-  cart.splice(index, 1); 
-  displayCart(); 
+  if (index >= 0 && index < cart.length) {
+    cart.splice(index, 1);
+    displayCart();
+    updateTotalPrice();
+  }
 }
 
 function displayCart() {
-  const cartItemsContainer = document.getElementById('cart-items'); 
-  cartItemsContainer.innerHTML = ''; 
+  const cartItemsContainer = document.getElementById('cart-items');
+  cartItemsContainer.innerHTML = '';
 
   cart.forEach((cartItem, index) => {
     const cartItemDiv = document.createElement('div');
     cartItemDiv.classList.add('cart-item');
 
-    const itemName = document.createElement('h4');
-    itemName.textContent = `${cartItem.roll.type} Roll`;
-    cartItemDiv.appendChild(itemName);
-
-    const itemDetails = document.createElement('p');
-    itemDetails.textContent = `Glazing: ${cartItem.roll.glazing}\nPack Size: ${cartItem.roll.size}\nPrice: $${cartItem.price.toFixed(2)}`;
-    cartItemDiv.appendChild(itemDetails);
+    // ... Create elements for item details ...
 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
@@ -145,47 +115,6 @@ function displayCart() {
 
     cartItemsContainer.appendChild(cartItemDiv);
   });
-}
-
-displayCart();
-
-function appendCartItem(roll) {
-  const cartItemsContainer = document.getElementById('cart-items'); 
-
-  const cartItemDiv = document.createElement('div');
-  cartItemDiv.classList.add('cart-item');
-
-  const itemImage = document.createElement('img');
-  itemImage.src = `../assets/products/${rollsData[roll.type].imageFile}`;
-  itemImage.alt = roll.type;
-  cartItemDiv.appendChild(itemImage);
-
-  const itemDetails = document.createElement('div');
-  itemDetails.classList.add('item-details');
-
-  const itemName = document.createElement('h4');
-  itemName.textContent = `${roll.type} Roll`;
-  itemDetails.appendChild(itemName);
-
-  const itemGlazing = document.createElement('p');
-  itemGlazing.textContent = `Glazing: ${roll.glazing}`;
-  itemDetails.appendChild(itemGlazing);
-
-  const itemPackSize = document.createElement('p');
-  itemPackSize.textContent = `Pack Size: ${roll.size}`;
-  itemDetails.appendChild(itemPackSize);
-
-  const itemPrice = document.createElement('p');
-  itemPrice.textContent = `Price: $${roll.price.toFixed(2)}`;
-  itemDetails.appendChild(itemPrice);
-
-  const removeButton = document.createElement('button');
-  removeButton.textContent = 'Remove';
-  removeButton.addEventListener('click', () => removeItem(cart.indexOf(roll)));
-  itemDetails.appendChild(removeButton);
-
-  cartItemDiv.appendChild(itemDetails);
-  cartItemsContainer.appendChild(cartItemDiv);
 }
 
 function updateTotalPrice() {
@@ -198,11 +127,9 @@ function updateTotalPrice() {
   totalPriceDisplay.textContent = `$${total.toFixed(2)}`;
 }
 
-function addToCartAndUpdatePage(roll) {
-  cart.push({ roll, price: roll.calculatePrice() });
-  appendCartItem(roll); 
-  updateTotalPrice(); 
-}
+populateDropdownOptions();
+displayCart();
 
+// Example usage to add a roll to the cart and update the page
 const rollToAdd = new Roll('Original', 'Sugar Milk', 1, 2.49);
 addToCartAndUpdatePage(rollToAdd);
