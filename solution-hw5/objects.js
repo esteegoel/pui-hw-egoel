@@ -79,15 +79,15 @@ function populateDropdownOptions() {
   }
 }
 
-cconst cart = [];
+const cart = [];
 
-// add 4 initial items
+// Create four new Roll objects & add them to the cart
 const roll1 = new Roll('Original', 'Sugar Milk', 1, 2.49);
 const roll2 = new Roll('Walnut', 'Vanilla Milk', 12, 39.90);
 const roll3 = new Roll('Raisin', 'Sugar Milk', 3, 8.97);
 const roll4 = new Roll('Apple', 'Original', 3, 10.47);
 
-// calculate and add prices
+// Calculate prices and add the objects to the cart
 cart.push({ roll: roll1, price: roll1.calculatePrice() });
 cart.push({ roll: roll2, price: roll2.calculatePrice() });
 cart.push({ roll: roll3, price: roll3.calculatePrice() });
@@ -115,6 +115,14 @@ function displayCart() {
     const cartItemDiv = document.createElement('div');
     cartItemDiv.classList.add('cart-item');
 
+    const itemName = document.createElement('p');
+    itemName.textContent = `${cartItem.roll.type}`;
+    cartItemDiv.appendChild(itemName);
+
+    const itemDetails = document.createElement('p');
+    itemDetails.textContent = `Glazing: ${cartItem.roll.glazing}\nPack Size: ${cartItem.roll.size}\nPrice: $${cartItem.price.toFixed(2)}`;
+    cartItemDiv.appendChild(itemDetails);
+
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => removeItem(index));
@@ -136,4 +144,3 @@ function updateTotalPrice() {
 
 populateDropdownOptions();
 displayCart();
-updateTotalPrice();
