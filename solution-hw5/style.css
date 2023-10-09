@@ -213,3 +213,60 @@ select {
   color: #000;
   position: relative;
 }
+
+/* Style the cart container using Flexbox */
+.cart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Style each cart item using Flexbox */
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px; /* Add spacing between items */
+  padding: 10px; /* Add padding for spacing and readability */
+  border: 1px solid #ddd; /* Add a border to separate items */
+  width: 80%; /* Adjust width as needed */
+}
+
+/* Style the Remove button within .cart-item */
+.cart-item h5 {
+  font-size: 14px;
+  font-family: 'verdana';
+  font-weight: lighter;
+  margin: 0; /* Reset margin for consistency */
+  text-decoration: underline; /* Add underline */
+  cursor: pointer; /* Add cursor pointer for interactivity */
+}
+
+/* Set image size to 200x200 pixels */
+.cart-item .prod {
+  width: 200px;
+  height: 200px;
+  border: 2px solid black;
+}
+
+/* Style the item details */
+.cart-item-details {
+  flex-grow: 1; /* Allow details to take up remaining space */
+  padding-left: 20px; /* Add left padding for spacing */
+}
+
+/* Style the item price */
+.cart-item-price {
+  font-size: 20px;
+  font-family: 'verdana';
+  font-weight: lighter;
+  margin: 0; /* Reset margin for consistency */
+}
+
+/* Style the total price at the bottom */
+#total-price {
+  font-size: 20px;
+  font-family: 'verdana';
+  font-weight: bold;
+  margin: 0; /* Reset margin for consistency */
+}
