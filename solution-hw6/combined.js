@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 
   const rollsData = {
     "Original": {
@@ -58,18 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
       this.itemPrice = (this.basePrice + glazingPrice) * packPrice;
     }
   }
-
-  function updateTotalPrice() {
-    let totalPrice = 0;
-    for (const roll of cart) {
-      totalPrice += roll.itemPrice;
-    }
-
-    const totalPriceField = document.getElementById('total-price');
-    totalPriceField.textContent = `Total: $${totalPrice.toFixed(2)}`;
-  }
-
-  updateTotalPrice();
 
   function displayCartItem(roll) {
     const cartItem = document.createElement('div');
