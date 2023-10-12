@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
 
   const currentPage = window.location.pathname;
   if (currentPage.includes('detail.html')) {
@@ -78,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+
     // Function to update product price
     function updatePrice() {
       const glazingSelect = document.getElementById("glazingOptions");
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(queryString);
     const rollType = params.get('roll');
     if (rollType == null) {
-      rollType == 'Original';
+      rollType = "Original";
     }
 
     const cart = []; // Initialize an empty cart array
@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
     populateDropdownOptions(); // Populate the dropdowns when the page loads
     updatePrice(); // Update the initial price
   } 
-  
   else if (currentPage.includes('cart.html')) {
     // Import rollsData for image sourcing in cart 
       const rollsData = {
@@ -289,7 +288,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
       updateTotalPrice();
     }
-  
-  // Shared code for both pages can go here
-
-});
