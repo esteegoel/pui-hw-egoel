@@ -32,6 +32,9 @@
     </div>
 
     <div id="cart-container">
+        <ul id="cartList"> <!-- This is the missing cartList element -->
+            <!-- Cart items will be added here dynamically -->
+        </ul>
     </div>
 
     <div class="end">
@@ -44,7 +47,7 @@
                 Total: 
             </div>
 
-            <div id="total-price">
+            <div id="totalPrice">
             </div>
         </h4>
 
@@ -54,89 +57,5 @@
             </h2>
         </div>
     </div>
-
-    <script>
-        // Attempt to retrieve the cart from local storage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Function to display cart items in the DOM
-        function displayCartItems() {
-            const cartContainer = document.getElementById('cart-container');
-            cartContainer.innerHTML = ''; // Clear the container
-
-            cart.forEach((roll, index) => {
-                // Create cart item elements and append them to the container
-                const cartItem = document.createElement('div');
-                cartItem.className = 'item';
-
-                const rollImage = document.createElement('img');
-                rollImage.className = 'products';
-                rollImage.src = `../assets/products/${rollsData[roll.type].imageFile}`;
-                rollImage.alt = roll.type;
-
-                const rollDetails = document.createElement('div');
-                rollDetails.className = 'pic';
-
-                const nameParagraph = document.createElement('p');
-                nameParagraph.textContent = `${roll.type} Cinnamon Roll`;
-
-                const glazingParagraph = document.createElement('p');
-                glazingParagraph.textContent = `Glazing: ${roll.glazing}`;
-
-                const packSizeParagraph = document.createElement('p');
-                packSizeParagraph.textContent = `Pack Size: ${roll.size}`;
-
-                const priceParagraph = document.createElement('p');
-                priceParagraph.textContent = `Price: $${roll.itemPrice.toFixed(2)}`;
-                priceParagraph.className = 'price';
-
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.className = 'remove-button';
-
-                removeButton.addEventListener('click', () => {
-                    removeItemFromCart(index);
-                });
-
-                rollDetails.appendChild(nameParagraph);
-                rollDetails.appendChild(glazingParagraph);
-                rollDetails.appendChild(packSizeParagraph);
-                rollDetails.appendChild(priceParagraph);
-                cartItem.appendChild(rollImage);
-                cartItem.appendChild(rollDetails);
-                cartItem.appendChild(removeButton);
-                cartContainer.appendChild(cartItem);
-            });
-        }
-
-        // Function to remove an item from the cart
-        function removeItemFromCart(index) {
-            if (index >= 0 && index < cart.length) {
-                cart.splice(index, 1);
-                // Convert the updated cart to JSON and save it in local storage
-                localStorage.setItem('cart', JSON.stringify(cart));
-                // Re-render the cart items in the DOM to reflect the removal
-                displayCartItems();
-                // Update the total price field at the bottom of the page
-                updateTotalPrice();
-                // Print the updated cart in local storage
-                console.log("Updated Cart in local storage:", cart);
-            }
-        }
-
-        // Function to update the total price
-        function updateTotalPrice() {
-            let totalPrice = 0;
-            for (const roll of cart) {
-                totalPrice += roll.itemPrice;
-            }
-            const totalPriceField = document.getElementById('total-price');
-            totalPriceField.textContent = `Total: $${totalPrice.toFixed(2)}`;
-        }
-
-        // Display cart items and update total price on page load
-        displayCartItems();
-        updateTotalPrice();
-    </script>
 </body>
 </html>

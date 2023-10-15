@@ -1,91 +1,35 @@
 const currentPage = window.location.pathname;
 
-if (currentPage.includes('detail.html')) {
-  // Define the Roll class
-  class Roll {
-    constructor(rollType, rollGlazing, packSize, basePrice) {
-      this.type = rollType;
-      this.glazing = rollGlazing;
-      this.size = packSize;
-      this.basePrice = basePrice;
-    }
-
-    // Method to calculate the item price
-    calculatePrice() {
-      // Retrieve the glazing price from glazingOptions
-      const glazingPrice = glazingOptions[this.glazing] || 0;
-      // Retrieve the pack size import
-      const packPrice = this.size;
-      // Calculate the item price
-      this.itemPrice = (this.basePrice + glazingPrice) * packPrice;
-    }
+// Import rollsData
+const rollsData = {
+  "Original": {
+    "basePrice": 2.49,
+    "imageFile": "original-cinnamon-roll.jpg"
+  },
+  "Apple": {
+    "basePrice": 3.49,
+    "imageFile": "apple-cinnamon-roll.jpg"
+  },
+  "Raisin": {
+    "basePrice": 2.99,
+    "imageFile": "raisin-cinnamon-roll.jpg"
+  },
+  "Walnut": {
+    "basePrice": 3.49,
+    "imageFile": "walnut-cinnamon-roll.jpg"
+  },
+  "Double-Chocolate": {
+    "basePrice": 3.99,
+    "imageFile": "double-chocolate-cinnamon-roll.jpg"
+  },
+  "Strawberry": {
+    "basePrice": 3.99,
+    "imageFile": "strawberry-cinnamon-roll.jpg"
   }
-  
-  // Import rollsData
-  const rollsData = {
-    "Original": {
-      "basePrice": 2.49,
-      "imageFile": "original-cinnamon-roll.jpg"
-    },
-    "Apple": {
-      "basePrice": 3.49,
-      "imageFile": "apple-cinnamon-roll.jpg"
-    },
-    "Raisin": {
-      "basePrice": 2.99,
-      "imageFile": "raisin-cinnamon-roll.jpg"
-    },
-    "Walnut": {
-      "basePrice": 3.49,
-      "imageFile": "walnut-cinnamon-roll.jpg"
-    },
-    "Double-Chocolate": {
-      "basePrice": 3.99,
-      "imageFile": "double-chocolate-cinnamon-roll.jpg"
-    },
-    "Strawberry": {
-      "basePrice": 3.99,
-      "imageFile": "strawberry-cinnamon-roll.jpg"
-    }
-  };
+};
 
-  const glazingOptions = {
-    'Keep original': 0.00,
-    'Sugar milk': 0.00,
-    'Vanilla milk': 0.50,
-    'Double Chocolate': 1.50,
-  };
+document.addEventListener("DOMContentLoaded", function () {
 
-  const packSizeOptions = {
-    '1': 1,
-    '3': 3,
-    '6': 5,
-    '12': 10,
-  };
-
-  // Function to populate the dropdown options
-  function populateDropdownOptions() {
-    const glazingSelect = document.getElementById("glazingOptions");
-    const packSizeSelect = document.getElementById("sizeOptions");
-
-    // Populate glazing options
-    for (const glazing in glazingOptions) {
-      const option = document.createElement("option");
-      option.value = glazing;
-      option.textContent = glazing;
-      glazingSelect.appendChild(option);
-    }
-
-    // Populate pack size options
-    for (const size in packSizeOptions) {
-      const option = document.createElement("option");
-      option.value = size;
-      option.textContent = size;
-      packSizeSelect.appendChild(option);
-    }
-  }
-
-  // Function to update product price
   function updatePrice() {
     const glazingSelect = document.getElementById("glazingOptions");
     const sizeSelect = document.getElementById("sizeOptions");
@@ -106,154 +50,189 @@ if (currentPage.includes('detail.html')) {
     }
   }
 
-  const queryString = window.location.search;
-  const params = new URLSearchParams(queryString);
-  let rollType = params.get('roll') || "Original";
+// Add an event listener to the "Add to Cart" button
+document.getElementById("button").addEventListener("click", addToCart);
 
-  // Attempt to retrieve the cart from local storage
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// When the user clicks on "Add to Cart"
+function addToCart() {
+  const glazingSelect = document.getElementById("glazingOptions");
+  const sizeSelect = document.getElementById("sizeOptions");
+  const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0];
+  const selectedGlazing = glazingSelect.value;
+  const selectedSize = sizeSelect.value;
 
-  // If no cart exists, create an empty cart array
-  if (!cart) {
-    cart = [];
-  }
+  const rollInfo = rollsData[selectedRollType];
+  const basePrice = rollInfo.basePrice;
 
-  // Add an event listener to the "Add to Cart" button
-  document.getElementById("button").addEventListener("click", addToCart);
+  const roll = new Roll(selectedRollType, selectedGlazing, selectedSize, basePrice);
+  roll.calculatePrice();
 
-  // When the user clicks on "Add to Cart"
-  function addToCart() {
-    const glazingSelect = document.getElementById("glazingOptions");
-    const sizeSelect = document.getElementById("sizeOptions");
-    const selectedRollType = document.getElementById('rollTitle').textContent.split(' ')[0];
-    const selectedGlazing = glazingSelect.value;
-    const selectedSize = sizeSelect.value;
+  // Add the roll to the cart array
+  cart.push(roll);
 
-    const rollInfo = rollsData[selectedRollType];
-    const basePrice = rollInfo.basePrice;
+  // Convert the updated cart to JSON and save it in local storage
+  localStorage.setItem('cart', JSON.stringify(cart));
 
-    const roll = new Roll(selectedRollType, selectedGlazing, selectedSize, basePrice);
-    roll.calculatePrice();
-
-    // Add the roll to the cart array
-    cart.push(roll);
-
-    // Convert the updated cart to JSON and save it in local storage
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Print the current contents of the cart in local storage
-    console.log("Cart in local storage:", cart);
-  }
-
-  const rollInfo = rollsData[rollType];
-  const imagePath = `../assets/products/${rollInfo.imageFile}`;
-
-  document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
-  document.getElementById('rollImage').src = imagePath;
-  populateDropdownOptions(); // Populate the dropdowns when the page loads
-  updatePrice(); // Update the initial price
+  // Print the current contents of the cart in local storage
+  console.log("Cart in local storage:", cart);
 }
 
-else if (currentPage.includes('cart.html')) {
-  // Initialize the cart from local storage
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (currentPage.includes('detail.html')) {
+    // Define the Roll class
+    class Roll {
+      constructor(rollType, rollGlazing, packSize, basePrice) {
+        this.type = rollType;
+        this.glazing = rollGlazing;
+        this.size = packSize;
+        this.basePrice = basePrice;
+      }
 
-  // Import rollsData for image sourcing in cart 
-  const rollsData = {
-    "Original": {
-      "basePrice": 2.49,
-      "imageFile": "original-cinnamon-roll.jpg"
-    },
-    "Apple": {
-      "basePrice": 3.49,
-      "imageFile": "apple-cinnamon-roll.jpg"
-    },
-    "Raisin": {
-      "basePrice": 2.99,
-      "imageFile": "raisin-cinnamon-roll.jpg"
-    },
-    "Walnut": {
-      "basePrice": 3.49,
-      "imageFile": "walnut-cinnamon-roll.jpg"
-    },
-    "Double-Chocolate": {
-      "basePrice": 3.99,
-      "imageFile": "double-chocolate-cinnamon-roll.jpg"
-    },
-    "Strawberry": {
-      "basePrice": 3.99,
-      "imageFile": "strawberry-cinnamon-roll.jpg"
+      // Method to calculate the item price
+      calculatePrice() {
+        // Retrieve the glazing price from glazingOptions
+        const glazingPrice = glazingOptions[this.glazing] || 0;
+        // Retrieve the pack size import
+        const packPrice = this.size;
+        // Calculate the item price
+        this.itemPrice = (this.basePrice + glazingPrice) * packPrice;
+        
+        console.log("glazingPrice: ", glazingPrice);
+        console.log("packPrice: ", packPrice);
+        console.log("itemPrice: ", this.itemPrice);
+      }
     }
-  };
+    
 
+    const glazingOptions = {
+      'Keep original': 0.00,
+      'Sugar milk': 0.00,
+      'Vanilla milk': 0.50,
+      'Double Chocolate': 1.50,
+    };
 
-  // Function to update the cart display on the cart page
-  function updateCartDisplay() {
-    const cartList = document.getElementById("cartList");
-    const totalPriceDisplay = document.getElementById("totalPrice");
+    const packSizeOptions = {
+      '1': 1,
+      '3': 3,
+      '6': 5,
+      '12': 10,
+    };
 
-    // Clear the current cart list
-    cartList.innerHTML = "";
+    // Function to populate the dropdown options
+    function populateDropdownOptions() {
+      const glazingSelect = document.getElementById("glazingOptions");
+      const packSizeSelect = document.getElementById("sizeOptions");
 
-    let totalCartPrice = 0;
+      // Populate glazing options
+      for (const glazing in glazingOptions) {
+        const option = document.createElement("option");
+        option.value = glazing;
+        option.textContent = glazing;
+        glazingSelect.appendChild(option);
+      }
 
-    // Iterate through items in the cart
-    for (const item of cart) {
-      const itemInfo = rollsData[item.type];
-      const imagePath = `../assets/products/${itemInfo.imageFile}`;
+      // Populate pack size options
+      for (const size in packSizeOptions) {
+        const option = document.createElement("option");
+        option.value = size;
+        option.textContent = size;
+        packSizeSelect.appendChild(option);
+      }
+    }
 
-      // Create elements for the cart item
-      const cartItem = document.createElement("li");
-      const itemImage = document.createElement("img");
-      const itemDescription = document.createElement("span");
-      const itemPrice = document.createElement("span");
-      const removeButton = document.createElement("a");
+    // Function to update product price
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    let rollType = params.get('roll') || "Original";
 
-      // Set attributes and content for elements
-      itemImage.src = imagePath;
-      itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
-      itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
-      removeButton.textContent = "Remove";
-      removeButton.href = "#"; // For appearance, not functional
+    // Attempt to retrieve the cart from local storage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-      // Calculate total cart price
-      totalCartPrice += item.itemPrice;
+    // If no cart exists, create an empty cart array
+    if (!cart) {
+      cart = [];
+    }
 
-      // Add a click event to remove the item
-      removeButton.addEventListener("click", () => {
-        removeItemFromCart(item);
-        updateCartDisplay(); // Update the cart display after removing
+    const rollInfo = rollsData[rollType];
+    const imagePath = `../assets/products/${rollInfo.imageFile}`;
+
+    document.getElementById('rollTitle').textContent = `${rollType} Cinnamon Roll`;
+    document.getElementById('rollImage').src = imagePath;
+    populateDropdownOptions(); // Populate the dropdowns when the page loads
+    updatePrice(); // Update the initial price
+  }
+
+  else if (currentPage.includes('cart.html')) {
+    // Initialize the cart from local storage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Function to update the cart display on the cart page
+    function updateCartDisplay() {
+      const cartList = document.getElementById("cartList");
+      const totalPriceDisplay = document.getElementById("totalPrice");
+
+      // Clear the current cart list
+      cartList.innerHTML = "";
+
+      let totalCartPrice = 0;
+
+      // Iterate through items in the cart
+      for (const item of cart) {
+        const itemInfo = rollsData[item.type];
+        const imagePath = `../assets/products/${itemInfo.imageFile}`;
+
+        // Create elements for the cart item
+        const cartItem = document.createElement("li");
+        const itemImage = document.createElement("img");
+        const itemDescription = document.createElement("span");
+        const itemPrice = document.createElement("span");
+        const removeButton = document.createElement("a");
+
+        // Set attributes and content for elements
+        itemImage.src = imagePath;
+        itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
+        itemPrice.textContent = `${item.itemPrice.toFixed(2)}`;
+        removeButton.textContent = "Remove";
+        removeButton.href = "#"; // For appearance, not functional
+
+        // Calculate total cart price
+        totalCartPrice += item.itemPrice;
+
+        // Add a click event to remove the item
+        removeButton.addEventListener("click", () => {
+          removeItemFromCart(item);
+          updateCartDisplay(); // Update the cart display after removing
+        });
+
+        // Append elements to the cart list
+        cartItem.appendChild(itemImage);
+        cartItem.appendChild(itemDescription);
+        cartItem.appendChild(itemPrice);
+        cartItem.appendChild(removeButton);
+        cartList.appendChild(cartItem);
+      }
+
+      // Display the total cart price
+      totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
+    }
+
+    // Function to remove an item from the cart
+    function removeItemFromCart(item) {
+      const itemIndex = cart.findIndex((cartItem) => {
+        return (
+          cartItem.type === item.type &&
+          cartItem.glazing === item.glazing &&
+          cartItem.size === item.size
+        );
       });
 
-      // Append elements to the cart list
-      cartItem.appendChild(itemImage);
-      cartItem.appendChild(itemDescription);
-      cartItem.appendChild(itemPrice);
-      cartItem.appendChild(removeButton);
-      cartList.appendChild(cartItem);
+      if (itemIndex !== -1) {
+        cart.splice(itemIndex, 1);
+        // Update the cart in local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
     }
 
-    // Display the total cart price
-    totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
+    // Initialize cart display
+    updateCartDisplay();
   }
-
-  // Function to remove an item from the cart
-  function removeItemFromCart(item) {
-    const itemIndex = cart.findIndex((cartItem) => {
-      return (
-        cartItem.type === item.type &&
-        cartItem.glazing === item.glazing &&
-        cartItem.size === item.size
-      );
-    });
-
-    if (itemIndex !== -1) {
-      cart.splice(itemIndex, 1);
-      // Update the cart in local storage
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  }
-
-  // Initialize cart display
-  updateCartDisplay();
-}
+});
