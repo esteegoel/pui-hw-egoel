@@ -116,7 +116,7 @@ if (!cart) {
   cart = [];
 }
 
-const buttonElement = document.getElementById("button");
+const buttonElement = document.getElementById("addToCartButton");
 
 if (buttonElement) {
   buttonElement.addEventListener("click", addToCart);
@@ -161,49 +161,53 @@ if (currentPage.includes('cart.html')) {
     const totalPriceDisplay = document.getElementById("totalPrice");
 
     // Clear the current cart list
-    cartList.innerHTML = "";
+    if (cartList) {
+      cartList.innerHTML = "";
 
-    let totalCartPrice = 0;
+      let totalCartPrice = 0;
 
-    // Iterate through items in the cart
-    for (const item of cart) {
-      const itemInfo = rollsData[item.type];
-      const imagePath = `../assets/products/${itemInfo.imageFile}`;
+      // Iterate through items in the cart
+      for (const item of cart) {
+        const itemInfo = rollsData[item.type];
+        const imagePath = `../assets/products/${itemInfo.imageFile}`;
 
-      // Create elements for the cart item
-      const cartItem = document.createElement("li");
-      const itemImage = document.createElement("img");
-      const itemDescription = document.createElement("span");
-      const itemPrice = document.createElement("span");
-      const removeButton = document.createElement("a");
+        // Create elements for the cart item
+        const cartItem = document.createElement("li");
+        const itemImage = document.createElement("img");
+        const itemDescription = document.createElement("span");
+        const itemPrice = document.createElement("span");
+        const removeButton = document.createElement("a");
 
-      // Set attributes and content for elements
-      itemImage.src = imagePath;
-      itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
-      itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
-      removeButton.textContent = "Remove";
-      removeButton.href = "#"; // For appearance, not functional
+        // Set attributes and content for elements
+        itemImage.src = imagePath;
+        itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
+        itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
+        removeButton.textContent = "Remove";
+        removeButton.href = "#"; // For appearance, not functional
 
-      // Calculate total cart price
-      totalCartPrice += item.itemPrice;
+        // Calculate total cart price
+        totalCartPrice += item.itemPrice;
 
-      // Add a click event to remove the item
-      removeButton.addEventListener("click", () => {
-        removeItemFromCart(item);
-        updateCartDisplay(); // Update the cart display after removing
-        updateLocalStorage(); // Update local storage after removing
-      });
+        // Add a click event to remove the item
+        removeButton.addEventListener("click", () => {
+          removeItemFromCart(item);
+          updateCartDisplay(); // Update the cart display after removing
+          updateLocalStorage(); // Update local storage after removing
+        });
 
-      // Append elements to the cart list
-      cartItem.appendChild(itemImage);
-      cartItem.appendChild(itemDescription);
-      cartItem.appendChild(itemPrice);
-      cartItem.appendChild(removeButton);
-      cartList.appendChild(cartItem);
+        // Append elements to the cart list
+        cartItem.appendChild(itemImage);
+        cartItem.appendChild(itemDescription);
+        cartItem.appendChild(itemPrice);
+        cartItem.appendChild(removeButton);
+        cartList.appendChild(cartItem);
+      }
+
+      // Display the total cart price
+      if (totalPriceDisplay) {
+        totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
+      }
     }
-
-    // Display the total cart price
-    totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
   }
 
   // Function to remove an item from the cart

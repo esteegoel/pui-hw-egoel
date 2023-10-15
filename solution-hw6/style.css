@@ -62,7 +62,7 @@ a:hover, a:active { /* W3 Schools */
     border: 2px solid black;
   }
 
-.button, #button { /* W3 Schools */
+.button, #addToCartButton { /* W3 Schools */
     background-color: yellow; 
     border: 2px solid black;
     padding: 15px 15px;
