@@ -151,8 +151,9 @@ if (currentPage.includes('cart.html')) {
 
   function updateCartDisplay() {
     const cartList = document.getElementById("cartList");
-    const totalPriceDisplay = document.getElementById("totalPrice");
-  
+    const totalPriceDisplay = document.getElementById("total-price");
+      totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
+        
     if (cartList && totalPriceDisplay) {
       cartList.innerHTML = "";
   
@@ -164,20 +165,27 @@ if (currentPage.includes('cart.html')) {
         const imagePath = `../assets/products/${itemInfo.imageFile}`;
   
         // Create elements for the cart item
-        const cartItem = document.createElement("li");
+        const cartItem = document.createElement("div");
+          cartItem.classList.add("cart-item");
         const itemImage = document.createElement("img");
+          itemImage.classList.add("cart-item-image");
         const itemDescription = document.createElement("span");
         const itemPrice = document.createElement("span");
         const removeButton = document.createElement("a");
   
         itemImage.src = imagePath;
         itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
-        itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
+  
+        // Check if item.itemPrice is a number before formatting it
+        if (typeof item.itemPrice === "number" && !isNaN(item.itemPrice)) {
+          itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
+          totalCartPrice += item.itemPrice;
+        } else {
+          itemPrice.textContent = "Price not available"; // Or handle this case as needed
+        }
+  
         removeButton.textContent = "Remove";
         removeButton.href = "#"; // For appearance, not functional
-  
-        // Calculate total cart price
-        totalCartPrice += item.itemPrice;
   
         // Add a click event to remove the item
         removeButton.addEventListener("click", () => {
@@ -187,6 +195,8 @@ if (currentPage.includes('cart.html')) {
         });
   
         // Append elements to the cart list
+        const cartContainer = document.getElementById("cart-container");
+          cartContainer.appendChild(cartItem);
         cartItem.appendChild(itemImage);
         cartItem.appendChild(itemDescription);
         cartItem.appendChild(itemPrice);
@@ -197,7 +207,8 @@ if (currentPage.includes('cart.html')) {
       // Display the total cart price
       totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
     }
-  }  
+  }
+  
 
   // Function to remove an item from the cart
   function removeItemFromCart(item) {
