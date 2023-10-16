@@ -118,7 +118,7 @@ if (currentPage.includes('detail.html')) {
     const glazingSelect = document.getElementById("glazingOptions");
     const sizeSelect = document.getElementById("sizeOptions");
     const rollTypeElement = document.getElementById('rollTitle');
-
+  
     if (glazingSelect && sizeSelect && rollTypeElement) {
       const selectedRollType = rollTypeElement.textContent.split(' ')[0];
       const selectedGlazing = glazingSelect.value;
@@ -131,10 +131,14 @@ if (currentPage.includes('detail.html')) {
       localStorage.setItem('cart', JSON.stringify(cart));
       glazingSelect.value = 'Keep original';
       sizeSelect.value = '1';
+  
+      // Log the updated cart
+      console.log("Cart after adding:", cart);
     } else {
       console.error("Elements not selected correctly.");
     }
   }
+  
 
   const rollInfo = rollsData[rollType];
   const imagePath = `../assets/products/${rollInfo.imageFile}`;
@@ -190,7 +194,7 @@ if (currentPage.includes('cart.html')) {
           removeItemFromCart(item);
           updateCartDisplay(); // Update the cart display after removing
           updateLocalStorage(); // Update local storage after removing
-        }
+        });
 
         // Append elements to the cart list
         const cartContainer = document.getElementById("cart-container");
@@ -226,7 +230,7 @@ if (currentPage.includes('cart.html')) {
   function updateLocalStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
     // Print the updated cart in local storage
-    console.log(JSON.parse(localStorage.getItem('cart'));
+    console.log(JSON.parse(localStorage.getItem('cart')));
   }
 
   // Initialize cart display
