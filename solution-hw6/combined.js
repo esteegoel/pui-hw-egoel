@@ -154,13 +154,11 @@ if (currentPage.includes('cart.html')) {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   function updateCartDisplay() {
+    let totalCartPrice = 0; // Declare totalCartPrice here
     const cartList = document.getElementById("cart-list");
     const totalPriceDisplay = document.getElementById("total-price");
-    totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
     if (cartList && totalPriceDisplay) {
       cartList.innerHTML = ""; // Clear the cart list
-  
-      let totalCartPrice = 0;
   
       // Iterate through items in the cart
       for (const item of cart) {

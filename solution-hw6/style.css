@@ -258,7 +258,7 @@ select {
   font-weight: lighter;
 }
 
-.cart-container {
+.cart-list {
   display: flex;
   flex-direction: column;
   align-items: center;
