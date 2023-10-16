@@ -68,6 +68,7 @@ class Roll {
     this.glazing = rollGlazing;
     this.size = packSize;
     this.basePrice = basePrice;
+    this.calculatePrice();
   }
 
   calculatePrice() {
@@ -125,8 +126,13 @@ if (currentPage.includes('detail.html')) {
       const selectedSize = sizeSelect.value;
       const rollInfo = rollsData[selectedRollType];
       const basePrice = rollInfo.basePrice;
+
+      // Calculate itemPrice here
+      const glazingPrice = parseFloat(glazingOptions[selectedGlazing]);
+      const packPrice = parseInt(selectedSize);
+      const itemPrice = (basePrice + glazingPrice) * packPrice;
+
       const roll = new Roll(selectedRollType, selectedGlazing, selectedSize, basePrice);
-      roll.calculatePrice();
       cart.push(roll);
       localStorage.setItem('cart', JSON.stringify(cart));
       glazingSelect.value = 'Keep original';
@@ -146,85 +152,86 @@ if (currentPage.includes('detail.html')) {
 }
 
 if (currentPage.includes('cart.html')) {
-  // Initialize the cart from local storage
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function updateCartDisplay() {
-  const cartList = document.getElementById("cartList");
-  const totalPriceDisplay = document.getElementById("totalPrice");
-
-  if (cartList) {
-    cartList.innerHTML = "";
-
-    let totalCartPrice = 0;
-
-    // Iterate through items in the cart
-    for (const item of cart) {
-      const itemInfo = rollsData[item.type];
-      const imagePath = `../assets/products/${itemInfo.imageFile}`;
-
-      // Create elements for the cart item
-      const cartItem = document.createElement("li");
-      const itemImage = document.createElement("img");
-      const itemDescription = document.createElement("span");
-      const itemPrice = document.createElement("span");
-      const removeButton = document.createElement("a");
-
-      itemImage.src = imagePath;
-      itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
-      itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
-      removeButton.textContent = "Remove";
-      removeButton.href = "#"; // For appearance, not functional
-
-      // Calculate total cart price
-      totalCartPrice += item.itemPrice;
-
-      // Add a click event to remove the item
-      removeButton.addEventListener("click", () => {
-        removeItemFromCart(item);
-        updateCartDisplay(); // Update the cart display after removing
-        updateLocalStorage(); // Update local storage after removing
-      });
-
-      // Append elements to the cart list
-      cartItem.appendChild(itemImage);
-      cartItem.appendChild(itemDescription);
-      cartItem.appendChild(itemPrice);
-      cartItem.appendChild(removeButton);
-      cartList.appendChild(cartItem);
-    }
-
-    // Display the total cart price
-    if (totalPriceDisplay) {
+  function updateCartDisplay() {
+    const cartList = document.getElementById("cartList");
+    const totalPriceDisplay = document.getElementById("totalPrice");
+  
+    if (cartList && totalPriceDisplay) {
+      cartList.innerHTML = "";
+  
+      let totalCartPrice = 0;
+  
+      // Iterate through items in the cart
+      for (const item of cart) {
+        const itemInfo = rollsData[item.type];
+        const imagePath = `../assets/products/${itemInfo.imageFile}`;
+  
+        // Create elements for the cart item
+        const cartItem = document.createElement("li");
+        const itemImage = document.createElement("img");
+        const itemDescription = document.createElement("span");
+        const itemPrice = document.createElement("span");
+        const removeButton = document.createElement("a");
+  
+        itemImage.src = imagePath;
+        itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
+        
+        // Calculate itemPrice here
+        const itemPriceValue = (item.basePrice + parseFloat(glazingOptions[item.glazing])) * packSizeOptions[item.size];
+        itemPrice.textContent = `$${itemPriceValue.toFixed(2)}`;
+        
+        removeButton.textContent = "Remove";
+        removeButton.href = "#"; // For appearance, not functional
+  
+        // Calculate total cart price
+        totalCartPrice += itemPriceValue;
+  
+        // Add a click event to remove the item
+        removeButton.addEventListener("click", () => {
+          removeItemFromCart(item);
+          updateCartDisplay(); // Update the cart display after removing
+          updateLocalStorage(); // Update local storage after removing
+        });
+  
+        // Append elements to the cart list
+        cartItem.appendChild(itemImage);
+        cartItem.appendChild(itemDescription);
+        cartItem.appendChild(itemPrice);
+        cartItem.appendChild(removeButton);
+        cartList.appendChild(cartItem);
+      }
+  
+      // Display the total cart price
       totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
     }
+  }  
+
+  // Function to remove an item from the cart
+  function removeItemFromCart(item) {
+    const itemIndex = cart.findIndex((cartItem) => {
+      return (
+        cartItem.type === item.type &&
+        cartItem.glazing === item.glazing &&
+        cartItem.size === item.size
+      );
+    });
+
+    if (itemIndex !== -1) {
+      cart.splice(itemIndex, 1);
+    }
   }
-}
 
-// Function to remove an item from the cart
-function removeItemFromCart(item) {
-  const itemIndex = cart.findIndex((cartItem) => {
-    return (
-      cartItem.type === item.type &&
-      cartItem.glazing === item.glazing &&
-      cartItem.size === item.size
-    );
-  });
-
-  if (itemIndex !== -1) {
-    cart.splice(itemIndex, 1);
+  // Function to update local storage with the current cart
+  function updateLocalStorage() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    // Print the updated cart in local storage
+    console.log(JSON.parse(localStorage.getItem('cart'));
   }
-}
 
-// Function to update local storage with the current cart
-function updateLocalStorage() {
-  localStorage.setItem('cart', JSON.stringify(cart));
-  // Print the updated cart in local storage
-  console.log(JSON.parse(localStorage.getItem('cart')));
-}
-
-// Initialize cart display
-updateCartDisplay();
+  // Initialize cart display
+  updateCartDisplay();
 }
 
 window.addEventListener('load', () => {
