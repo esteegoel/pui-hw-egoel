@@ -98,10 +98,9 @@ function populateDropdownOptions() {
 }
 
 if (currentPage.includes('detail.html')) {
-  let rollType; // Declare rollType variable
   const queryString = window.location.search;
   const params = new URLSearchParams(queryString);
-  rollType = params.get('roll') || "Original"; // Assign a value to rollType
+  let rollType = params.get('roll') || "Original";
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -119,7 +118,6 @@ if (currentPage.includes('detail.html')) {
     const glazingSelect = document.getElementById("glazingOptions");
     const sizeSelect = document.getElementById("sizeOptions");
     const rollTypeElement = document.getElementById('rollTitle');
-    console.log("Updated Cart:", cart);
 
     if (glazingSelect && sizeSelect && rollTypeElement) {
       const selectedRollType = rollTypeElement.textContent.split(' ')[0];
@@ -149,49 +147,45 @@ if (currentPage.includes('detail.html')) {
 
 if (currentPage.includes('cart.html')) {
   // Initialize the cart from local storage
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  if (!cart) {
-    cart = [];
-  }
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   function updateCartDisplay() {
     const cartList = document.getElementById("cartList");
     const totalPriceDisplay = document.getElementById("totalPrice");
-
+  
     if (cartList && totalPriceDisplay) {
       cartList.innerHTML = "";
-
+  
       let totalCartPrice = 0;
-
+  
       // Iterate through items in the cart
       for (const item of cart) {
         const itemInfo = rollsData[item.type];
         const imagePath = `../assets/products/${itemInfo.imageFile}`;
-
+  
         // Create elements for the cart item
         const cartItem = document.createElement("li");
         const itemImage = document.createElement("img");
         const itemDescription = document.createElement("span");
         const itemPrice = document.createElement("span");
         const removeButton = document.createElement("a");
-
+  
         itemImage.src = imagePath;
         itemDescription.textContent = `${item.type} - Glazing: ${item.glazing}, Pack Size: ${item.size}`;
         itemPrice.textContent = `$${item.itemPrice.toFixed(2)}`;
         removeButton.textContent = "Remove";
         removeButton.href = "#"; // For appearance, not functional
-
+  
         // Calculate total cart price
         totalCartPrice += item.itemPrice;
-
+  
         // Add a click event to remove the item
         removeButton.addEventListener("click", () => {
           removeItemFromCart(item);
           updateCartDisplay(); // Update the cart display after removing
           updateLocalStorage(); // Update local storage after removing
         });
-
+  
         // Append elements to the cart list
         cartItem.appendChild(itemImage);
         cartItem.appendChild(itemDescription);
@@ -199,11 +193,11 @@ if (currentPage.includes('cart.html')) {
         cartItem.appendChild(removeButton);
         cartList.appendChild(cartItem);
       }
-
+  
       // Display the total cart price
       totalPriceDisplay.textContent = `$${totalCartPrice.toFixed(2)}`;
     }
-  }
+  }  
 
   // Function to remove an item from the cart
   function removeItemFromCart(item) {
@@ -230,9 +224,3 @@ if (currentPage.includes('cart.html')) {
   // Initialize cart display
   updateCartDisplay();
 }
-
-window.addEventListener('load', () => {
-  if (currentPage.includes('cart.html')) {
-    updateCartDisplay();
-  }
-});
